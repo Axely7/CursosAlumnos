@@ -1,0 +1,34 @@
+﻿@page "/DetalleAlumno/{id}"
+@inherits DetalleAlumnoBase
+
+<div class="row justify-content-center m-3">
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-header">
+                <h1>@alumno.Nombre</h1>
+            </div>
+
+            <div class="card-body text-center">
+                <img class="card-img-top" src="@alumno.Foto"/>
+
+                <h4>Alumno id: @alumno.Id</h4>
+                <h4>Email : @alumno.Email</h4>
+                <h4>Fecha de alta: @alumno.FechaAlta</h4>
+                @if(alumno.FechaBaja == null)
+                {
+                    <h4 class="alert-success">Fecha de baja: De alta</h4>
+                }
+                else
+                {
+                    <h4 class="alert-danger">Fecha de baja: @alumno.FechaBaja</h4>
+                }
+            </div>
+            <div class="card-footer text-center">
+                <a href="/ListaAlumnos" class="btn btn-primary">Volver</a>
+                <a href="#" class="btn btn-primary">Editar</a>
+                <a href="#" class="btn btn-danger">Borrar</a>
+            </div>
+        </div>
+    </div>
+</div>
+

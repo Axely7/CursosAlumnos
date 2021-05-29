@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "kG9QPxwEyUrLVyRPhxM2AJN3QbcZXq9L5ZiMsSYi2awEuwcqAESg104bmE42I7IOnDc+YsQMBD3vxnOgv4qHmQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\AxelEduardo\\Documents\\Software learning\\BlazorCursoUdemy\\BlazorServer\\BlazorServer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\AxelEduardo\\.nuget\\packages\\microsoft.aspnetcore.blazor.httpclient\\3.2.0-preview1.20073.1\\microsoft.aspnetcore.blazor.httpclient.3.2.0-preview1.20073.1.nupkg.sha512",
+    "C:\\Users\\AxelEduardo\\.nuget\\packages\\system.text.json\\4.7.0\\system.text.json.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}
