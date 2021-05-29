@@ -26,5 +26,10 @@ namespace BlazorServer.Servicios
         {
             return await httpClient.GetJsonAsync<Alumno>("API/Alumnos/" + id.ToString());
         }
+
+        public async Task<Alumno> CrearAlumno(Alumno alumno)
+        {
+            return await httpClient.PostJsonAsync<Alumno>("API/Alumnos/", alumno);
+        }
     }
 }

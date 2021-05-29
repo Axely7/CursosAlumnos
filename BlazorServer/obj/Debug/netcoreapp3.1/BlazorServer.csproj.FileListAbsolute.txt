@@ -21,6 +21,7 @@ C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\o
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\DetalleAlumno.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Index.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\ListaAlumnos.razor.g.cs
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\NuevoAlumno.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\MainLayout.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\NavMenu.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\SurveyPrompt.razor.g.cs
@@ -34,6 +35,7 @@ C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\o
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Pages\DetalleAlumno.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Pages\Index.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Pages\ListaAlumnos.razor.g.cs
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Pages\NuevoAlumno.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Shared\MainLayout.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Shared\NavMenu.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Shared\SurveyPrompt.razor.g.cs

@@ -75,7 +75,8 @@ using BlazorServer.Shared;
 #line default
 #line hidden
 #nullable disable
-    public partial class NuevoAlumno : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/nuevoAlumno")]
+    public partial class NuevoAlumno : NuevoAlumnoBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)

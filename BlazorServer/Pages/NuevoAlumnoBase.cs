@@ -12,13 +12,28 @@ namespace BlazorServer.Pages
     {
         [Inject]
         public IServicioAlumnos ServicioAlumnos { get; set; }
-        [Parameter]
-        public NavigationManager navigationManager { get; set; }
+        [Inject]
+        public NavigationManager navigationManager { get; set; } //Redirige a diferentes paginas
         public Alumno alumno = new Alumno();
 
-        private void HandleValidSubmit()
+        public void HandleValidSubmit()
         {
+            //Para realizar las validaciones
             Console.WriteLine("OnValidSubmit");
+        }
+
+        protected async Task Guardar()
+        {
+            alumno.FechaAlta = DateTime.Now;
+            if(alumno.Nombre != null && alumno.Email != null && alumno.Foto != null)
+            {
+                alumno = (await ServicioAlumnos.CrearAlumno(alumno));
+                navigationManager.NavigateTo("/listaAlumnos");
+            }
+        }
+        protected void Cancelar()
+        {
+            navigationManager.NavigateTo("/listaAlumnos");
         }
     }
 }
