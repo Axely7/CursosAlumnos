@@ -1,0 +1,36 @@
+﻿@page "/modificarAlumno/{id:int}"
+@using BlazorServer.Servicios;
+@using ModeloClasesAlumnos;
+@inject IServicioAlumnos ServicioAlumnos
+@inject NavigationManager navigationManager
+
+<h3>Modificar Alumno</h3>
+<hr />
+<div class="row justify-content-center m-3">
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-header">
+                <h1>@alumno.Nombre</h1>
+            </div>
+            <div class="card-body text-center">
+                <img class="card-img-top" src="@alumno.Foto"/>
+            </div>
+        </div>
+        <EditForm Model="@alumno" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <ValidationSummary></ValidationSummary>
+            <div class="form-group row">
+                <label for="Nombre" class="col-sm-2 col-form-label">Nombre</label>
+                <div class="col-sm-10">
+                    <InputText id="Nombre" class="form-control" placeholder="Nombre del alumno" @bind-Value="alumno.Nombre"></InputText>
+                    <ValidationMessage For="@(() => alumno.Nombre)"></ValidationMessage>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="Email" class="col-sm-2 col-form-">Email</label>
+
+            </div>
+        </EditForm>
+    </div>
+
+</div>
