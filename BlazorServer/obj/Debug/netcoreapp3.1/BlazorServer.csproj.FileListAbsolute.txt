@@ -1,5 +1,6 @@
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\bin\Debug\netcoreapp3.1\BlazorServer.StaticWebAssets.xml
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\bin\Debug\netcoreapp3.1\BlazorServer.exe
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\bin\Debug\netcoreapp3.1\BlazorServer.deps.json
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\bin\Debug\netcoreapp3.1\BlazorServer.runtimeconfig.json
@@ -8,6 +9,7 @@ C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\b
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\bin\Debug\netcoreapp3.1\BlazorServer.pdb
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\bin\Debug\netcoreapp3.1\BlazorServer.Views.dll
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\bin\Debug\netcoreapp3.1\BlazorServer.Views.pdb
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\bin\Debug\netcoreapp3.1\BlazorInputFile.dll
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Blazor.HttpClient.dll
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\bin\Debug\netcoreapp3.1\ModeloClasesAlumnos.dll
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\bin\Debug\netcoreapp3.1\ModeloClasesAlumnos.pdb

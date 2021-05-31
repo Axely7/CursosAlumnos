@@ -37,7 +37,7 @@ namespace APIAlumnos.Repositorio
                 Comm.CommandType = CommandType.StoredProcedure;   //Procedimiento almacenado
                 Comm.Parameters.Add("@Nombre", SqlDbType.VarChar, 500).Value = alumno.Nombre;
                 Comm.Parameters.Add("@Email", SqlDbType.VarChar, 500).Value = alumno.Email;
-                Comm.Parameters.Add("@Foto", SqlDbType.VarChar, 500).Value = alumno.Nombre;
+                Comm.Parameters.Add("@Foto", SqlDbType.VarChar, 500).Value = alumno.Foto;
                 Comm.Parameters.Add("@FechaAlta", SqlDbType.DateTime).Value = alumno.FechaAlta;
                 reader = await Comm.ExecuteReaderAsync();
                 if (reader.Read())

@@ -67,8 +67,6 @@ namespace APIAlumnos.Controllers
 
 
                 var nuevoAlumno = await alumnosRepositorio.AltaAlumno(alumno);
-
-
                 return nuevoAlumno;
             }
             catch (Exception)

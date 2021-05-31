@@ -1,6 +1,7 @@
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\ModeloClasesAlumnos\bin\Debug\netcoreapp3.1\ModeloClasesAlumnos.deps.json
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\ModeloClasesAlumnos\bin\Debug\netcoreapp3.1\ModeloClasesAlumnos.dll
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\ModeloClasesAlumnos\bin\Debug\netcoreapp3.1\ModeloClasesAlumnos.pdb
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\ModeloClasesAlumnos\obj\Debug\netcoreapp3.1\ModeloClasesAlumnos.csprojAssemblyReference.cache
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\ModeloClasesAlumnos\obj\Debug\netcoreapp3.1\ModeloClasesAlumnos.AssemblyInfoInputs.cache
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\ModeloClasesAlumnos\obj\Debug\netcoreapp3.1\ModeloClasesAlumnos.AssemblyInfo.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\ModeloClasesAlumnos\obj\Debug\netcoreapp3.1\ModeloClasesAlumnos.csproj.CoreCompileInputs.cache

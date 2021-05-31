@@ -14,7 +14,6 @@ namespace BlazorServer.Pages
         public IServicioAlumnos ServicioAlumnos { get; set; }
         [Parameter]
         public string Id { get; set; }
-        public IEnumerable<Alumno> Alumnos { get; set; }
         public Alumno alumno { get; set; } = new Alumno();
 
         protected override async Task OnInitializedAsync()
