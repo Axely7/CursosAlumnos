@@ -150,12 +150,20 @@ namespace APIAlumnos.Controllers
         {
             try
             {
-                var alumnoValidar = await alumnosRepositorio.DameAlumno(idAlumno);
+                Alumno AlumnoRespuesta = null;
+                Alumno alumnoValidar = await alumnosRepositorio.DameAlumno(idAlumno);
 
                 if (alumnoValidar == null)
                     return NotFound($"Alumno no encontrado");
 
-                return await alumnosRepositorio.AlumnoCursos(idAlumno);
+                AlumnoRespuesta = await alumnosRepositorio.AlumnoCursos(idAlumno);
+
+                if(AlumnoRespuesta == null)
+                {
+                    AlumnoRespuesta = alumnoValidar;
+                }
+                return AlumnoRespuesta;
+                
             }
             catch (Exception)
             {
