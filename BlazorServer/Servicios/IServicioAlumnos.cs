@@ -11,5 +11,7 @@ namespace BlazorServer.Servicios
         Task<IEnumerable<Alumno>> DameAlumnos();
         Task<Alumno> DameAlumno (int id);
         Task<Alumno> CrearAlumno(Alumno alumno);
+        Task<Alumno> ModificarAlumno(int id, Alumno alumno);
+        Task BorrarAlumno(int id);
     }
 }

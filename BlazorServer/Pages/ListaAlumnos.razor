@@ -11,8 +11,8 @@
 
 
 
-@if(Alumnos == null)
- {
+@if (Alumnos == null)
+{
     <div class="spinner"></div>
 }
 
@@ -21,39 +21,84 @@ else
     <div class="card-deck">
         @foreach (var alumno in Alumnos)
         {
-        <div class="card m-3" style="min-width: 18rem; max-width: 30.5%; min-height: 26rem;">
-            @if (alumno.FechaBaja == null)
-            {
-                <div class="card-header">
-                    <h3>@alumno.Nombre</h3>
-                </div>
-                <img class="card-img-top imageThumbnail" src="@alumno.Foto" />
-                <div class="card-footer text-center">
-                    <a href="#" class="btn btn-primary m-1">Cursos</a>
-                    <a href="@($"DetalleAlumno/{alumno.Id}")" class="btn btn-primary m-1">Ver</a>
-                    <a href="@($"modificarAlumno/{alumno.Id}")" class="btn btn-primary m-1">Editar</a>
-                    <a href="#" class="btn btn-danger m-1">Borrar</a>
-                </div>
-            }
-            else
-            {
-                <div class="card-header bg-danger">
-                    <h3>@alumno.Nombre</h3>
-                </div>
-                <img class="card-img-top imageThumbnail" src="@alumno.Foto" />
-                <div class="card-footer text-center bg-danger">
-                    <a href="#" class="btn btn-primary m-1">Cursos</a>
-                    <a href="@($"DetalleAlumno/{alumno.Id}")" class="btn btn-primary m-1">Ver</a>
-                    <a href="#" class="btn btn-primary m-1">Editar</a>
-                </div>
-            }
+            <div class="card m-3" style="min-width: 18rem; max-width: 30.5%; min-height: 26rem;">
+                @if (alumno.FechaBaja == null)
+                {
+                    <div class="card-header">
+                        <h3>@alumno.Nombre</h3>
+                    </div>
+                    <img class="card-img-top imageThumbnail" src="@alumno.Foto" />
+                    <div class="card-footer text-center">
+                        <a href="#" class="btn btn-primary m-1">Cursos</a>
+                        <a href="@($"DetalleAlumno/{alumno.Id}")" class="btn btn-primary m-1">Ver</a>
+                        <a href="@($"modificarAlumno/{alumno.Id}")" class="btn btn-primary m-1">Editar</a>
+                        <button class="btn btn-danger m-1" @onclick="(()=> Borrar(alumno.Id))">Baja</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-header bg-danger">
+                        <h3>@alumno.Nombre</h3>
+                    </div>
+                    <img class="card-img-top imageThumbnail" src="@alumno.Foto" />
+                    <div class="card-footer text-center bg-danger">
+                        <a href="#" class="btn btn-primary m-1">Cursos</a>
+                        <a href="@($"DetalleAlumno/{alumno.Id}")" class="btn btn-primary m-1">Ver</a>
+                        <a href="@($"modificarAlumno/{alumno.Id}")" class="btn btn-primary m-1">Editar</a>
+                    </div>
+                }
 
-        </div>
+            </div>
         }
     </div>
 }
 
 
-@code {
-   
+@if (MostrarPopUP)
+{
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h3 class="modal-title">Baja alumno</h3>
+                    <button type="button" class="close" @onclick="CerrarPop">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+
+                <div class="modal-body alert-danger">
+                    <strong>Va dar de baja a este alumno. Si esta seguro continue. Si no cierre esta ventana.</strong>
+                    <br />
+                    <button type="button" class="btn btn-danger" @onclick="(() => DarDeBaja(idAlumnoBorrar)">
+                        Dar de baja
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
+else
+{
+    <div class="modal" tabindex="-1" style="display:none" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h3 class="modal-title">Baja alumno</h3>
+                    <button type="button" class="close" @onclick="CerrarPop">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+
+                <div class="modal-body alert-danger">
+                    <strong>Va dar de baja a este alumno. Si esta seguro continue. Si no cierre esta ventana.</strong>
+                    <br />
+                    <button type="button" class="btn btn-danger" @onclick="(() => DarDeBaja(idAlumnoBorrar)">
+                        Dar de baja
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

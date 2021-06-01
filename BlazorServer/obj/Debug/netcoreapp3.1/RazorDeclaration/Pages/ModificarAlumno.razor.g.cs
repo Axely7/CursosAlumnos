@@ -89,6 +89,21 @@ using BlazorInputFile;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 2 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarAlumno.razor"
+using BlazorServer.Servicios;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarAlumno.razor"
+using ModeloClasesAlumnos;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/modificarAlumno/{id:int}")]
     public partial class ModificarAlumno : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -96,6 +111,82 @@ using BlazorInputFile;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 66 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarAlumno.razor"
+      
+    [Parameter]
+    public int id { get; set; }
+    Alumno alumno = new Alumno();
+    IFileListEntry fichero;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(id > 0)
+        {
+            alumno = await ServicioAlumnos.DameAlumno(id);
+        }
+    }
+
+    public void HandleValidSubmit()
+    {
+        Console.WriteLine("OnValidSubmit");
+    }
+
+    public void FicheroSeleccionado(IFileListEntry[] ficheros)
+    {
+        fichero = ficheros[0];
+        string extension = Path.GetExtension(fichero.Name);
+        if (extension != ".jpg")
+            fichero = null;
+    }
+
+    protected async Task Guardar()
+    {
+        try
+        {
+            if(alumno.Nombre != null && alumno.Email != null)
+            {
+                if(fichero != null && fichero.Data != null)
+                {
+                    var ms = new MemoryStream();
+                    await fichero.Data.CopyToAsync(ms);
+                    string nombreFichero = "images/" + Guid.NewGuid() + ".jpg";
+                    using (FileStream file = new FileStream("wwwroot/" + nombreFichero, FileMode.Create, FileAccess.Write))
+                        ms.WriteTo(file);
+
+                    alumno.Foto = nombreFichero;
+                }
+                alumno = (await ServicioAlumnos.ModificarAlumno(alumno.Id, alumno));
+                navigationManager.NavigateTo("/listaAlumnos");
+            }
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+
+    }
+
+    protected void Cancelar()
+    {
+        navigationManager.NavigateTo("/listaAlumnos");
+    }
+
+    public Boolean dameValor()
+    {
+        Boolean estaDeBaja = false;
+        if (alumno.FechaBaja != null)
+            estaDeBaja = true;
+
+        return estaDeBaja;
+    }
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioAlumnos ServicioAlumnos { get; set; }
     }
 }
 #pragma warning restore 1591

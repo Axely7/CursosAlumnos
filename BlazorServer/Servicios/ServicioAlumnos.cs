@@ -31,5 +31,15 @@ namespace BlazorServer.Servicios
         {
             return await httpClient.PostJsonAsync<Alumno>("API/Alumnos/", alumno);
         }
+
+        public async Task<Alumno> ModificarAlumno(int id, Alumno alumno)
+        {
+            return await httpClient.PutJsonAsync<Alumno>("API/Alumnos/" + id.ToString(), alumno);
+        }
+
+        public async Task BorrarAlumno(int id)
+        {
+            await httpClient.DeleteAsync($"API/Alumnos/{id}");
+        }
     }
 }
