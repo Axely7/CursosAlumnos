@@ -356,6 +356,8 @@ namespace APIAlumnos.Repositorio
             SqlConnection sqlConexion = conexion();
             SqlCommand Comm = null;
             SqlDataReader reader = null;
+            int idCursoAux = -1;
+            Curso c = null;
 
             try
             {
@@ -377,12 +379,28 @@ namespace APIAlumnos.Repositorio
                         alumno.ListaCursos = new List<Curso>();
                     }
 
-                    Curso c = new Curso();
-                    c.Id = Convert.ToInt32(reader["idcurso"]);
-                    c.NombreCurso = reader["NombreCurso"].ToString();
+                    if(idCursoAux == -1 || idCursoAux != Convert.ToInt32(reader["idcurso"]))
+                    {
+                        if (c != null)
+                            alumno.ListaCursos.Add(c);
+                        c = new Curso();
+                        c.Id = Convert.ToInt32(reader["idcurso"]);
+                        c.NombreCurso = reader["NombreCurso"].ToString();
+                        c.ListaPrecios = new List<Precio>();
+                    }
 
-                    alumno.ListaCursos.Add(c);
+                    Precio p = new Precio();
+                    p.Coste = Convert.ToDouble(reader["Coste"]);
+                    p.FechaInicio = Convert.ToDateTime(reader["FechaInicio"]);
+                    p.FechaFin = Convert.ToDateTime(reader["FechaFin"]);
+                    c.ListaPrecios.Add(p);
+
+                    idCursoAux = Convert.ToInt32(reader["idCurso"]);
+
                 }
+
+                if (c != null)
+                    alumno.ListaCursos.Add(c);
             }
             catch(SqlException ex)
             {

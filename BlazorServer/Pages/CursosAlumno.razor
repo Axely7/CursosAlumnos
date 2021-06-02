@@ -38,17 +38,20 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach(Curso c in alumno.ListaCursos)
+            @foreach (Curso c in alumno.ListaCursos)
+            {
+                @foreach (Precio p in c.ListaPrecios)
                 {
                     <tr>
                         <td>@alumno.Nombre</td>
                         <td>@alumno.Email</td>
                         <td>@c.NombreCurso</td>
-                        <td>Por obtener</td>
-                        <td>Por obtener</td>
-                        <td>Por obtener</td>
+                        <td class="text-success"> <strong>@p.Coste $</strong> </td>
+                        <td>@p.FechaInicio.ToString("dd/MM/yyyy")</td>
+                        <td>@p.FechaFin.ToString("dd/MM/yyyy")</td>
                     </tr>
                 }
+            }
         </tbody>
     </table>
 }
