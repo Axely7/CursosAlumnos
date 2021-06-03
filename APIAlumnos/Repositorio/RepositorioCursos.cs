@@ -69,7 +69,7 @@ namespace APIAlumnos.Repositorio
             return cursoCreado;
         }
 
-        public async Task<IEnumerable<Curso>> DameCursos()
+        public async Task<IEnumerable<Curso>> DameCursos(int idAlumno)
         {
             List<Curso> listaCursos = new List<Curso>();
             Curso curso = null;
@@ -82,6 +82,8 @@ namespace APIAlumnos.Repositorio
                 Comm = sqlConexion.CreateCommand();
                 Comm.CommandText = "dbo.CursoDameCursos";
                 Comm.CommandType = CommandType.StoredProcedure; //Procedimiento almacenado
+                if (idAlumno != -1)
+                    Comm.Parameters.Add("@idalumno", SqlDbType.Int).Value = idAlumno;
                 reader = await Comm.ExecuteReaderAsync();
                 while (reader.Read())
                 {

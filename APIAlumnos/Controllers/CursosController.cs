@@ -92,12 +92,12 @@ namespace APIAlumnos.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<ActionResult> DameCursos()
+        [Route("~/api/AlumnosCursos/{idAlumno}")]
+        public async Task<ActionResult> DameCursos(int idAlumno)
         {
             try
             {
-                return Ok(await cursosRepositorio.DameCursos());
+                return Ok(await cursosRepositorio.DameCursos(idAlumno));
             }
             catch (Exception)
             {
