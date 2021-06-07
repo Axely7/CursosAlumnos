@@ -14,5 +14,6 @@ namespace BlazorServer.Servicios
         Task<Alumno> ModificarAlumno(int id, Alumno alumno);
         Task BorrarAlumno(int id);
         Task<Alumno> CursosInscritosAlumno(int id);
+        Task<Alumno> CursosInscribirAlumno(Alumno alumno, int idcurso, int idprecio);
     }
 }

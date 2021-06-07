@@ -112,19 +112,33 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 54 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\InscribirAlumno.razor"
+#line 58 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\InscribirAlumno.razor"
        
 
     [Parameter]
     public int id { get; set; }
 
     public List<Curso> listaCursos { get; set; } = new List<Curso>();
+    Alumno alumno = new Alumno();
 
     protected override async Task OnInitializedAsync()
     {
         listaCursos = (await ServicioCursos.DameCursos(id)).ToList();
+        alumno = (await ServicioAlumnos.DameAlumno(id));
     }
 
+    protected async Task Inscribir(int idCurso, int idprecio)
+    {
+        try
+        {
+            alumno = (await ServicioAlumnos.CursosInscribirAlumno(alumno, idCurso, idprecio));
+            navigationManager.NavigateTo("/ListaCursosAlumno/" + id);
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
 
 
 #line default

@@ -13,6 +13,10 @@
 {
     <div class="spinner"></div>
 }
+else if(alumno.FechaBaja != null)
+{
+    <p class="text-danger">Este alumno está de baja.</p>
+}
 else if(listaCursos.Count == 0)
 {
     <p class="text-danger">No hay cursos disponibles</p>
@@ -37,7 +41,7 @@ else{
                             <td>@p.FechaInicio.ToString("dd/MM/yyyy")</td>
                             <td>@p.FechaFin.ToString("dd/MM/yyyy")</td>
                             <td>
-                                <input type="submit" class="btn btn-primary" value="Inscribir"/>
+                                <input type="submit" class="btn btn-primary" value="Inscribir" @onclick="(() => Inscribir(c.Id, p.Id))"/>
                             </td>
                         </tr>
                     }
@@ -71,6 +75,10 @@ else{
         {
             alumno = (await ServicioAlumnos.CursosInscribirAlumno(alumno, idCurso, idprecio));
             navigationManager.NavigateTo("/ListaCursosAlumno/" + id);
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
         }
     }
 

@@ -17,7 +17,7 @@ namespace APIAlumnos.Repositorio
 
         Task<IEnumerable<Alumno>> BuscarAlumnos(string texto);
         //Inscribir Alumnos en curso
-        Task<Alumno> InscribirAlumnoCurso(Alumno Alumno, int idCurso);
+        Task<Alumno> InscribirAlumnoCurso(Alumno Alumno, int idCurso, int idPrecio);
 
         //Devuelve los datos de un alumno y todos sus cursos
         Task<Alumno> AlumnoCursos(int idAlumno);

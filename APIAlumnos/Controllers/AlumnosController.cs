@@ -128,8 +128,8 @@ namespace APIAlumnos.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniendo los datos");
             }
         }
-        [Route("InscribirAlumno/{idCurso}")]
-        public async Task<ActionResult<Alumno>> InscribirAlumnoCurso([FromBody] Alumno alumno, int idCurso)
+        [Route("InscribirAlumno/{idCurso}/{idprecio}")]
+        public async Task<ActionResult<Alumno>> InscribirAlumnoCurso([FromBody] Alumno alumno, int idCurso, int idprecio)
         {
             try
             {
@@ -138,7 +138,7 @@ namespace APIAlumnos.Controllers
                 if (alumnoValidar == null)
                     return NotFound($"Alumno no encontrado");
 
-                return await alumnosRepositorio.InscribirAlumnoCurso(alumno, idCurso);
+                return await alumnosRepositorio.InscribirAlumnoCurso(alumno, idCurso, idprecio);
             }
             catch (Exception)
             {

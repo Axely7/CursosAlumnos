@@ -316,7 +316,7 @@ namespace APIAlumnos.Repositorio
             return AlumnosEncontrados;
         }
 
-        public async Task<Alumno> InscribirAlumnoCurso(Alumno Alumno, int idCurso)
+        public async Task<Alumno> InscribirAlumnoCurso(Alumno Alumno, int idCurso, int idprecio)
         {
             Alumno alumnoInscrito = null;
             SqlConnection sqlConexion = conexion();
@@ -329,7 +329,8 @@ namespace APIAlumnos.Repositorio
                 Comm.CommandText = "dbo.UsuarioInscribirCurso";
                 Comm.CommandType = CommandType.StoredProcedure;
                 Comm.Parameters.Add("@idAlumno", SqlDbType.Int).Value = Alumno.Id;
-                Comm.Parameters.Add("idCurso", SqlDbType.VarChar, 500).Value = idCurso;
+                Comm.Parameters.Add("@idCurso", SqlDbType.VarChar, 500).Value = idCurso;
+                Comm.Parameters.Add("@idprecio", SqlDbType.Int).Value = idprecio;
 
                 await Comm.ExecuteNonQueryAsync();
 
