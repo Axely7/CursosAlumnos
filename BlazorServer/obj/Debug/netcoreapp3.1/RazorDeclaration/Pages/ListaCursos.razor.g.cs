@@ -90,21 +90,21 @@ using BlazorInputFile;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\InscribirAlumno.razor"
+#line 2 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ListaCursos.razor"
 using BlazorServer.Servicios;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\InscribirAlumno.razor"
+#line 3 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ListaCursos.razor"
 using ModeloClasesAlumnos;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/InscribirAlumno/{id:int}")]
-    public partial class InscribirAlumno : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/ListaCursos")]
+    public partial class ListaCursos : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -112,41 +112,20 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 59 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\InscribirAlumno.razor"
+#line 58 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ListaCursos.razor"
        
-
-    [Parameter]
-    public int id { get; set; }
-
     public List<Curso> listaCursos { get; set; } = new List<Curso>();
-    Alumno alumno = new Alumno();
 
+    //Recordar que pasando -1 nos devolvia todos los cursos sin filtrar por alumno
     protected override async Task OnInitializedAsync()
     {
-        listaCursos = (await ServicioCursos.DameCursos(id)).ToList();
-        alumno = (await ServicioAlumnos.DameAlumno(id));
+        listaCursos = (await ServicioCurso.DameCursos(-1)).ToList();
     }
-
-    protected async Task Inscribir(int idCurso, int idprecio)
-    {
-        try
-        {
-            alumno = (await ServicioAlumnos.CursosInscribirAlumno(alumno, idCurso, idprecio));
-            navigationManager.NavigateTo("/ListaCursosAlumno/" + id);
-        }
-        catch(Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
-    }
-
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioCursos ServicioCursos { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioAlumnos ServicioAlumnos { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioCursos ServicioCurso { get; set; }
     }
 }
 #pragma warning restore 1591

@@ -90,21 +90,21 @@ using BlazorInputFile;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\InscribirAlumno.razor"
+#line 2 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\NuevoCurso.razor"
 using BlazorServer.Servicios;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\InscribirAlumno.razor"
+#line 3 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\NuevoCurso.razor"
 using ModeloClasesAlumnos;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/InscribirAlumno/{id:int}")]
-    public partial class InscribirAlumno : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/NuevoCurso")]
+    public partial class NuevoCurso : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -112,41 +112,56 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 59 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\InscribirAlumno.razor"
+#line 58 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\NuevoCurso.razor"
        
+    Curso curso = new Curso();
+    Precio precio = new Precio();
 
-    [Parameter]
-    public int id { get; set; }
-
-    public List<Curso> listaCursos { get; set; } = new List<Curso>();
-    Alumno alumno = new Alumno();
-
-    protected override async Task OnInitializedAsync()
+    public void HandleValidSubmit()
     {
-        listaCursos = (await ServicioCursos.DameCursos(id)).ToList();
-        alumno = (await ServicioAlumnos.DameAlumno(id));
+        Console.WriteLine("OnValidSubmit");
     }
 
-    protected async Task Inscribir(int idCurso, int idprecio)
+    protected async Task Guardar()
     {
         try
         {
-            alumno = (await ServicioAlumnos.CursosInscribirAlumno(alumno, idCurso, idprecio));
-            navigationManager.NavigateTo("/ListaCursosAlumno/" + id);
+            if(curso.NombreCurso!=String.Empty &&
+                precio.Coste>=0 && precio.FechaFin!=null &&
+                precio.FechaInicio != null)
+            {
+                curso.ListaPrecios = new List<Precio>();
+                curso.ListaPrecios.Add(precio);
+                await ServicioCurso.AltaCurso(curso);
+                navigationManager.NavigateTo("/ListaCursos");
+            }
         }
         catch(Exception ex)
         {
             throw new Exception(ex.Message);
         }
+
     }
 
+    protected void Cancelar()
+    {
+        navigationManager.NavigateTo("/ListaCursos");
+    }
+
+    protected override void OnInitialized()
+    {
+        curso.NombreCurso = "Nuevo Curso";
+        precio.Coste = 19.99;
+        precio.FechaInicio = DateTime.Now;
+        precio.FechaFin = DateTime.Now.AddDays(30);
+
+    }
 
 #line default
 #line hidden
 #nullable disable
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioCursos ServicioCursos { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioAlumnos ServicioAlumnos { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioCursos ServicioCurso { get; set; }
     }
 }
 #pragma warning restore 1591

@@ -37,20 +37,21 @@ else{
                     {
                         <tr>
                             <td>@c.NombreCurso</td>
-                            <td class="text-success"><strong>@p.Coste $</strong></td>
+                            <td class="text-success"><strong>$@p.Coste</strong></td>
                             <td>@p.FechaInicio.ToString("dd/MM/yyyy")</td>
                             <td>@p.FechaFin.ToString("dd/MM/yyyy")</td>
-                            <td>
-                                <input type="submit" class="btn btn-primary" value="Inscribir" @onclick="(() => Inscribir(c.Id, p.Id))"/>
-                            </td>
+                            @if (DateTime.Now >= p.FechaInicio && DateTime.Now<p.FechaFin)
+                            {
+                                <td>
+                                    <input type="submit" class="btn btn-primary" value="Inscribir" @onclick="(() => Inscribir(c.Id, p.Id))" />
+                                </td>
+                            }      
                         </tr>
                     }
         </tbody>
 
     </table>
 }
-
-
 
 
 

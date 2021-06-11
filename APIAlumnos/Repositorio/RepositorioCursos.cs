@@ -47,7 +47,7 @@ namespace APIAlumnos.Repositorio
                     Comm.Parameters.Add("@Nombrecurso", SqlDbType.VarChar, 500).Value = curso.NombreCurso;
                     Comm.Parameters.Add("@Coste", SqlDbType.Float).Value = curso.ListaPrecios[cont].Coste;
                     Comm.Parameters.Add("@FechaInicio", SqlDbType.DateTime).Value = curso.ListaPrecios[cont].FechaInicio;
-                    Comm.Parameters.Add("@FechaFin", SqlDbType.DateTime).Value = curso.ListaPrecios[cont].FechaInicio;
+                    Comm.Parameters.Add("@FechaFin", SqlDbType.DateTime).Value = curso.ListaPrecios[cont].FechaFin;
                     idCursoCreado = Convert.ToInt32(await Comm.ExecuteScalarAsync());
                     cont++;
                 }
