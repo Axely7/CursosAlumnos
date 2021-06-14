@@ -62,6 +62,25 @@ namespace APIAlumnos.Controllers
             }
         }
 
+        [HttpGet("{id:int}/{idprecio:int}")]
+        public async Task<ActionResult<Curso>> DameCurso(int id, int idprecio)
+        {
+            try
+            {
+                var resultado = await cursosRepositorio.DameCurso(id, idprecio);
+                if (resultado == null)
+                    return NotFound();
+
+                return resultado;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniendo los datos");
+            }
+        }
+
+
+
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Curso>> DameCurso(int id)
         {

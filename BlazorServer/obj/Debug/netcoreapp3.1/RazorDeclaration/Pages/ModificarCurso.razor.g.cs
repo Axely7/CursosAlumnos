@@ -89,14 +89,87 @@ using BlazorInputFile;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/ListaAlumnos")]
-    public partial class ListaAlumnos : ListaAlumnoBase
+#nullable restore
+#line 2 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarCurso.razor"
+using BlazorServer.Servicios;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarCurso.razor"
+using ModeloClasesAlumnos;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/ModificarCurso/{idCurso:int}/{idPrecio:int}")]
+    public partial class ModificarCurso : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 59 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarCurso.razor"
+       
+    [Parameter]
+    public int idCurso { get; set; }
+    [Parameter]
+    public int idPrecio { get; set; }
+
+
+
+    Curso curso = new Curso();
+    Precio precio = new Precio();
+
+    public void HandleValidSubmit()
+    {
+        Console.WriteLine("OnValidSubmit");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (idCurso > 0)
+        {
+            curso = await ServicioCurso.DameCurso(idCurso, idPrecio);
+            precio = curso.ListaPrecios[0];
+        }
+    }
+
+
+
+    protected async Task Modificar()
+    {
+        try
+        {
+            if(curso.NombreCurso != String.Empty &&
+                precio.Coste >= 0 && precio.FechaFin != null &&
+                precio.FechaInicio != null)
+            {
+                curso.ListaPrecios[0] = precio;
+                curso = await ServicioCurso.ModificarCurso(idCurso, curso);
+                navigationManager.NavigateTo("/listaCursos");
+            }
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    protected void Cancelar()
+    {
+        navigationManager.NavigateTo("/listaCursos");
+    }
+
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioCursos ServicioCurso { get; set; }
     }
 }
 #pragma warning restore 1591

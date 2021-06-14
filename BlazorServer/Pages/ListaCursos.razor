@@ -41,7 +41,7 @@ else
                         <td>@p.FechaInicio.ToString("dd/MM/yyyy")</td>
                         <td>@p.FechaFin.ToString("dd/MM/yyyy")</td>
                         <td>
-                            <input type="submit" class="btn btn-primary" value="Modificar"/>
+                            <a href="@($"ModificarCurso/{c.Id}/{p.Id}")"  class="btn btn-primary m-1">Modificar</a>
                         </td>
                         <td>
                             <input type="submit" class="btn btn-danger" value="Eliminar"/>

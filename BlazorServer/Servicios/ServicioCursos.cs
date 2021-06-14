@@ -26,5 +26,16 @@ namespace BlazorServer.Servicios
         {
             return await httpClient.PostJsonAsync<Curso>("API/Cursos/", curso);
         }
+
+        public async Task<Curso> DameCurso(int IdCurso, int idPrecio)
+        {
+            return await httpClient.GetJsonAsync<Curso>("API/Cursos/" + IdCurso.ToString() + "/" + idPrecio.ToString());
+        }
+
+        public async Task<Curso> ModificarCurso(int id, Curso curso)
+        {
+            return await httpClient.PutJsonAsync<Curso>("API/Cursos/" + id.ToString(), curso);
+        }
+
     }
 }

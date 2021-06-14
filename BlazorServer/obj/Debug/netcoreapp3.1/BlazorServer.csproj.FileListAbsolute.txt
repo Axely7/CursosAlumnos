@@ -27,6 +27,7 @@ C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\o
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\ListaAlumnos.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\ListaCursos.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\ModificarAlumno.razor.g.cs
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\ModificarCurso.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\NuevoAlumno.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\NuevoCurso.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Shared\MainLayout.razor.g.cs
@@ -46,6 +47,7 @@ C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\o
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Pages\ListaAlumnos.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Pages\ListaCursos.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Pages\ModificarAlumno.razor.g.cs
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Pages\ModificarCurso.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Pages\NuevoAlumno.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Pages\NuevoCurso.razor.g.cs
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Shared\MainLayout.razor.g.cs

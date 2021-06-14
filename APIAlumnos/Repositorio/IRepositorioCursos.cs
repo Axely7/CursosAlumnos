@@ -16,6 +16,10 @@ namespace APIAlumnos.Repositorio
         Task<IEnumerable<Curso>> DameCursos(int idAlumno);
         //Devolvera los datos de un curso con sus precios buscando por id
         Task<Curso> DameCurso(int id);
+
+        //Devolvera los datos de un curso con un precio buscando por id 
+        Task<Curso> DameCurso(int id, int idprecio);
+
         //Devolvera los datos de un cuso con sus precios buscando por curso
         Task<Curso> DameCurso(string nombreCurso);
         //Podremos modificar los datos de un curso y sus precios

@@ -127,6 +127,58 @@ namespace APIAlumnos.Repositorio
             return listaCursos;
         }
 
+        public async Task<Curso> DameCurso(int id, int idprecio)
+        {
+            Curso curso = null;
+            SqlConnection sqlConexion = conexion();
+            SqlCommand Comm = null;
+            SqlDataReader reader = null;
+            try
+            {
+                sqlConexion.Open();
+                Comm = sqlConexion.CreateCommand();
+                Comm.CommandText = "dbo.CursoDameCursos";
+                Comm.CommandType = CommandType.StoredProcedure;   //Procedimiento almacenado
+                Comm.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                Comm.Parameters.Add("@idPrecio", SqlDbType.Int).Value = idprecio;
+                reader = await Comm.ExecuteReaderAsync();
+                while (reader.Read())
+                {
+                    if (curso == null)
+                    {
+                        curso = new Curso();
+                        curso.Id = Convert.ToInt32(reader["idCurso"]);
+                        curso.NombreCurso = reader["NombreCurso"].ToString();
+                        curso.ListaPrecios = new List<Precio>();
+                    }
+
+                    //Añadimos los posibles precios del curso
+                    Precio aux = new Precio();
+                    aux.Id = Convert.ToInt32(reader["idPrecio"]);
+                    aux.Coste = Convert.ToDouble(reader["Coste"]);
+                    aux.FechaInicio = Convert.ToDateTime(reader["FechaInicio"]);
+                    aux.FechaFin = Convert.ToDateTime(reader["FechaFin"]);
+
+                    curso.ListaPrecios.Add(aux);
+
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error cargando los datos de curso " + ex.Message);
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+                Comm.Dispose();
+                sqlConexion.Close();
+                sqlConexion.Dispose();
+            }
+            return curso;
+        }
+
 
         public async Task<Curso> DameCurso(int id)
         {

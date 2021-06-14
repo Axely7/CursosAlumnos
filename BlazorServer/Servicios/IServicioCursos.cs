@@ -10,5 +10,7 @@ namespace BlazorServer.Servicios
     {
         Task<IEnumerable<Curso>> DameCursos(int idalumno);
         Task<Curso> AltaCurso(Curso curso);
+        Task<Curso> DameCurso(int Id, int idPrecio);
+        Task<Curso> ModificarCurso(int id, Curso curso);
     }
 }
