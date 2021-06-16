@@ -55,6 +55,60 @@
     </div>
 </div>
 
+<br />
+
+<div>
+    <button class="oi oi-plus" type="submit" @onclick="MostrarNuevoPrecio"></button>
+    <strong>Agregar Precio</strong>
+</div>
+
+
+@if (mostrarPrecio)
+{
+<EditForm Model="@nuevoPrecio" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+    <div class="form-group row">
+        <label>Precio: </label>
+        <div class="col-sm-10">
+            <InputNumber id="Coste" ParsingErrorMessage="Debe introducir un coste" class="" @bind-Value="nuevoPrecio.Coste"></InputNumber>
+            <ValidationMessage For="@(()=> nuevoPrecio.Coste)"></ValidationMessage>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="FechaInicio" class="col-sm-2 col-form-label">Fecha Inicio: </label>
+        <div class="col-sm-10">
+            <InputDate id="FechaInicio" ParsingErrorMessage="Debe seleccionar una fecha" class="form-control" @bind-Value="nuevoPrecio.FechaInicio"></InputDate>
+            <ValidationMessage For="@(()=>nuevoPrecio.FechaInicio)"></ValidationMessage>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="FechaFin" class="col-sm-2 col-form-label">Fecha fin: </label>
+        <div class="col-sm-10">
+            <InputDate id="FechaFin" ParsingErrorMessage="Debe seleccionar una fecha" class="form-control" @bind-Value="nuevoPrecio.FechaFin"></InputDate>
+            <ValidationMessage For="@(()=>nuevoPrecio.FechaFin)"></ValidationMessage>
+        </div>
+    </div>
+
+    <div class="row content">
+        <div class="col-md-2">
+            <input type="submit" class="btn btn-info" value="Agregar" @onclick="GuardarPrecio"/>
+        </div>
+        <div class="col-md-2">
+            <input type="button" value="Cancelar" class="btn btn-dark" @onclick="MostrarNuevoPrecio"/>
+        </div>
+    </div>
+
+</EditForm>
+}
+
+
+
+
+
+
 
 @code {
     [Parameter]
@@ -62,10 +116,10 @@
     [Parameter]
     public int idPrecio { get; set; }
 
-
-
     Curso curso = new Curso();
     Precio precio = new Precio();
+    Precio nuevoPrecio = new Precio();
+    Boolean mostrarPrecio = false;
 
     public void HandleValidSubmit()
     {
@@ -78,10 +132,12 @@
         {
             curso = await ServicioCurso.DameCurso(idCurso, idPrecio);
             precio = curso.ListaPrecios[0];
+
+            nuevoPrecio.Coste = 19.99;
+            nuevoPrecio.FechaInicio = DateTime.Now;
+            nuevoPrecio.FechaFin = DateTime.Now.AddDays(30);
         }
     }
-
-
 
     protected async Task Modificar()
     {
@@ -105,6 +161,28 @@
     protected void Cancelar()
     {
         navigationManager.NavigateTo("/listaCursos");
+    }
+
+    protected void MostrarNuevoPrecio()
+    {
+        if (mostrarPrecio)
+            mostrarPrecio = false;
+        else
+            mostrarPrecio = true;
+    }
+
+    protected async void GuardarPrecio()
+    {
+        if(curso.NombreCurso != String.Empty &&
+            nuevoPrecio.Coste >= 0 && nuevoPrecio.FechaFin != null &&
+            nuevoPrecio.FechaInicio != null)
+        {
+            curso.ListaPrecios[0] = precio;
+            curso.ListaPrecios.Add(nuevoPrecio);
+
+            curso = await ServicioCurso.ModificarCurso(idCurso, curso);
+            navigationManager.NavigateTo("/listaCursos");
+        }
     }
 
 }

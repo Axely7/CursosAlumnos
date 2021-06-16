@@ -112,17 +112,17 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 59 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarCurso.razor"
+#line 113 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarCurso.razor"
        
     [Parameter]
     public int idCurso { get; set; }
     [Parameter]
     public int idPrecio { get; set; }
 
-
-
     Curso curso = new Curso();
     Precio precio = new Precio();
+    Precio nuevoPrecio = new Precio();
+    Boolean mostrarPrecio = false;
 
     public void HandleValidSubmit()
     {
@@ -135,10 +135,12 @@ using ModeloClasesAlumnos;
         {
             curso = await ServicioCurso.DameCurso(idCurso, idPrecio);
             precio = curso.ListaPrecios[0];
+
+            nuevoPrecio.Coste = 19.99;
+            nuevoPrecio.FechaInicio = DateTime.Now;
+            nuevoPrecio.FechaFin = DateTime.Now.AddDays(30);
         }
     }
-
-
 
     protected async Task Modificar()
     {
@@ -162,6 +164,28 @@ using ModeloClasesAlumnos;
     protected void Cancelar()
     {
         navigationManager.NavigateTo("/listaCursos");
+    }
+
+    protected void MostrarNuevoPrecio()
+    {
+        if (mostrarPrecio)
+            mostrarPrecio = false;
+        else
+            mostrarPrecio = true;
+    }
+
+    protected async void GuardarPrecio()
+    {
+        if(curso.NombreCurso != String.Empty &&
+            nuevoPrecio.Coste >= 0 && nuevoPrecio.FechaFin != null &&
+            nuevoPrecio.FechaInicio != null)
+        {
+            curso.ListaPrecios[0] = precio;
+            curso.ListaPrecios.Add(nuevoPrecio);
+
+            curso = await ServicioCurso.ModificarCurso(idCurso, curso);
+            navigationManager.NavigateTo("/listaCursos");
+        }
     }
 
 
