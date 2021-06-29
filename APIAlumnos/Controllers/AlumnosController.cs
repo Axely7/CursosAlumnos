@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ModeloClasesAlumnos;
+using Microsoft.Extensions.Logging;
 
 namespace APIAlumnos.Controllers
 {
@@ -14,9 +15,11 @@ namespace APIAlumnos.Controllers
     public class AlumnosController:ControllerBase
     {
         private readonly IRepositorioAlumnos alumnosRepositorio;
-        public AlumnosController(IRepositorioAlumnos alumnosRepositorio)
+        private readonly ILogger<AlumnosController> log;
+        public AlumnosController(IRepositorioAlumnos alumnosRepositorio, ILogger<AlumnosController> l)
         {
             this.alumnosRepositorio = alumnosRepositorio;
+            this.log = l;
         }
 
         [HttpGet]
@@ -26,8 +29,9 @@ namespace APIAlumnos.Controllers
             {
                 return Ok(await alumnosRepositorio.DameAlumnos());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                log.LogError("Se produjo un error en el controlador de alumnos en el método DameAlumnos:" + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniendo los datos");
             }
         }
@@ -43,8 +47,9 @@ namespace APIAlumnos.Controllers
                 return resultado;
                 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                log.LogError("Se produjo un error en el controlador de alumnos en el método DameAlumnos:" + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniendo los datos");
             }
         }
@@ -69,8 +74,9 @@ namespace APIAlumnos.Controllers
                 var nuevoAlumno = await alumnosRepositorio.AltaAlumno(alumno);
                 return nuevoAlumno;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                log.LogError("Se produjo un error en el controlador de alumnos en el método CrearAlumnos:" + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error dando de alta nuevo alumno");
             }
         }
@@ -91,8 +97,9 @@ namespace APIAlumnos.Controllers
                 return await alumnosRepositorio.ModificarAlumno(alumno);
                 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                log.LogError("Se produjo un error en el controlador de alumnos en el método ModificarAlumnos:" + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error actualizando datos");
             }
         }
@@ -112,6 +119,7 @@ namespace APIAlumnos.Controllers
             }
             catch(Exception ex)
             {
+                log.LogError("Se produjo un error en el controlador de alumnos en el método BorrarAlumnos:" + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error borrando alumno");
             }
         }
@@ -123,8 +131,9 @@ namespace APIAlumnos.Controllers
             {
                 return Ok(await alumnosRepositorio.BuscarAlumnos(texto));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                log.LogError("Se produjo un error en el controlador de alumnos en el método BuscarAlumnos:" + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniendo los datos");
             }
         }
@@ -140,8 +149,9 @@ namespace APIAlumnos.Controllers
 
                 return await alumnosRepositorio.InscribirAlumnoCurso(alumno, idCurso, idprecio);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                log.LogError("Se produjo un error en el controlador de alumnos en el método InscribirAlumnos:" + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error inscribiendo alumno en curso");
             }
         }
@@ -165,8 +175,9 @@ namespace APIAlumnos.Controllers
                 return AlumnoRespuesta;
                 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                log.LogError("Se produjo un error en el controlador de alumnos en el método AlumnoCurso:" + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniendo cursos alumno");
             }
         }

@@ -257,10 +257,7 @@ namespace APIAlumnos.Repositorio
                 }
 
             }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error borrando el alumno " + ex.Message);
-            }
+         
             finally
             {
                 if (reader != null)

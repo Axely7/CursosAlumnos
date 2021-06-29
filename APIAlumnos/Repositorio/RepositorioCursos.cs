@@ -342,10 +342,6 @@ namespace APIAlumnos.Repositorio
                 await Comm.ExecuteReaderAsync();
 
             }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error borrando el curso " + ex.Message);
-            }
             finally
             {
                 if (reader != null)

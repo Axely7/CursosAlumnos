@@ -68,3 +68,5 @@ C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\o
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\BlazorServer.dll
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\BlazorServer.pdb
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\BlazorServer.genruntimeconfig.cache
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\bin\Debug\netcoreapp3.1\NLog.dll
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll

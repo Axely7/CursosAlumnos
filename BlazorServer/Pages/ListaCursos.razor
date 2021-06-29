@@ -57,11 +57,11 @@ else
 
 
 @if(MostrarPopUP) { 
-    <div class="modal" tabindex="-1" style="display:block" role="dialog">
-        <div class="modal-dialog">
-            <div class="model-content">
-                <div class="modal-header bg-light">
-                    <h3 class="text-danger">Dar de baja curso</h3>
+    <div class="modal bg-secondary" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog modal-sm modal-notify modal-danger">
+            <div class="modal-content text-center">
+                <div class="modal-header d-flex justify-content-center bg">
+                    <h3 class="alert-head text-danger">Dar de baja curso</h3>
                     <button type="button" class="close" @onclick="CerrarPop">
                         <span aria-hidden="true">X</span>
                     </button>

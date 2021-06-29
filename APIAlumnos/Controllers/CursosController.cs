@@ -6,6 +6,7 @@ using ModeloClasesAlumnos;
 using Microsoft.AspNetCore.Mvc;
 using APIAlumnos.Repositorio;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace APIAlumnos.Controllers
 {
@@ -15,9 +16,11 @@ namespace APIAlumnos.Controllers
     {
         
         private readonly IRepositorioCursos cursosRepositorio;
-        public CursosController(IRepositorioCursos cursosRepositorio)
+        private readonly ILogger<CursosController> log;
+        public CursosController(IRepositorioCursos cursosRepositorio, ILogger<CursosController> l)
         {
             this.cursosRepositorio = cursosRepositorio;
+            this.log = l;
         }
 
         [HttpPost]
@@ -38,8 +41,10 @@ namespace APIAlumnos.Controllers
 
                 return nuevoCurso;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                log.LogError("Se produjo un error en el controlador de cursos en el método AltaCurso:" + ex.ToString());
+
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error dando de alta nuevo curso");
             }
         }
@@ -58,6 +63,7 @@ namespace APIAlumnos.Controllers
             }
             catch(Exception ex)
             {
+                log.LogError("Se produjo un error en el controlador de cursos en el método BorrarCurso: "+ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error borrando curso");
             }
         }
@@ -73,8 +79,9 @@ namespace APIAlumnos.Controllers
 
                 return resultado;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                log.LogError("Se produjo un error en el controlador de cursos en el método DameCurso: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniendo los datos");
             }
         }
@@ -92,8 +99,9 @@ namespace APIAlumnos.Controllers
 
                 return resultado;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                log.LogError("Se produjo un error en el controlador de cursos en el método DameCurso: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniendo los datos");
             }
         }
@@ -105,8 +113,9 @@ namespace APIAlumnos.Controllers
             {
                 return Ok(await cursosRepositorio.DameCurso(nombreCurso));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                log.LogError("Se produjo un error en el controlador de cursos en el método DameCurso: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniedo los datos");
             }
         }
@@ -118,8 +127,9 @@ namespace APIAlumnos.Controllers
             {
                 return Ok(await cursosRepositorio.DameCursos(idAlumno));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                log.LogError("Se produjo un error en el controlador de cursos en el método DameCursos: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniendo los datos");
             }
         }
@@ -137,8 +147,9 @@ namespace APIAlumnos.Controllers
                     return NotFound($"Curso con = {id} no encontrado");
                 return await cursosRepositorio.ModificarCursos(curso);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                log.LogError("Se produjo un error en el controlador de cursos en el método ModificarCurso: " + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error actualizando datos");
             }
 

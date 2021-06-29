@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using NLog.Extensions.Logging;
 
 namespace BlazorServer
 {
@@ -23,6 +24,10 @@ namespace BlazorServer
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                }).ConfigureLogging((hostingContext, logging) =>
+                {
+                    logging.AddNLog();
+                }
+                );
     }
 }

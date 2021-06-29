@@ -52,6 +52,10 @@
               "target": "Package",
               "version": "[0.2.0, )"
             },
+            "NLog.Extensions.Logging": {
+              "target": "Package",
+              "version": "[1.7.3, )"
+            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.2, )"
@@ -118,6 +122,12 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "NLog.Extensions.Logging": {
+              "target": "Package",
+              "version": "[1.7.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
