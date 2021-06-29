@@ -1,7 +1,9 @@
 
+using Blazored.SessionStorage;
 using BlazorServer.Servicios;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
@@ -44,6 +46,10 @@ namespace BlazorServer
             {
                 login.BaseAddress = new Uri(Configuration["RutaApi"]);
             });
+
+            services.AddBlazoredSessionStorage();
+            services.AddScoped<AuthenticationStateProvider, MiServicioAuthenticationStateProvider>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +70,8 @@ namespace BlazorServer
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapBlazorHub();

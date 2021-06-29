@@ -52,6 +52,10 @@
               "target": "Package",
               "version": "[0.2.0, )"
             },
+            "Blazored.SessionStorage": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.Core": {
               "target": "Package",
               "version": "[2.2.0, )"
@@ -67,6 +71,10 @@
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.2, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[6.0.0-preview.1.21102.12, )"
             }
           },
           "imports": [
@@ -131,6 +139,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Blazored.SessionStorage": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[3.1.6, )"
@@ -138,6 +150,10 @@
             "NLog.Extensions.Logging": {
               "target": "Package",
               "version": "[1.7.3, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[6.0.0-preview.1.21102.12, )"
             }
           },
           "imports": [

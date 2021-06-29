@@ -97,7 +97,7 @@ using BlazorInputFile;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 28 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Shared\NavMenu.razor"
+#line 33 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
 

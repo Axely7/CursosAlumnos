@@ -79,3 +79,7 @@ C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\o
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\BlazorServer.dll
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\BlazorServer.pdb
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\BlazorServer.genruntimeconfig.cache
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\IniciarSesion.razor.g.cs
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\Registrarse.razor.g.cs
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Pages\IniciarSesion.razor.g.cs
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\obj\Debug\netcoreapp3.1\Razor\Pages\Registrarse.razor.g.cs
