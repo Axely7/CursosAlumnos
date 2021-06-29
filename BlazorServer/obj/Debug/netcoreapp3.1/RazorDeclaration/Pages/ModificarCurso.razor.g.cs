@@ -103,6 +103,13 @@ using ModeloClasesAlumnos;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 7 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarCurso.razor"
+           [Authorize]
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/ModificarCurso/{idCurso:int}/{idPrecio:int}")]
     public partial class ModificarCurso : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -112,7 +119,7 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 135 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarCurso.razor"
+#line 136 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarCurso.razor"
        
     [Parameter]
     public int idCurso { get; set; }
@@ -128,7 +135,7 @@ using ModeloClasesAlumnos;
     String textoError = String.Empty;
 
     Login l = new Login();
-    Usuario u = new Usuario();
+    UsuarioAPI u = new UsuarioAPI();
 
     public void HandleValidSubmit()
     {

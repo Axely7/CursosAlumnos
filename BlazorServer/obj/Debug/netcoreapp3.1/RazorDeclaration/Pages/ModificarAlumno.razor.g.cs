@@ -103,6 +103,13 @@ using ModeloClasesAlumnos;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 7 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarAlumno.razor"
+           [Authorize]
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/modificarAlumno/{id:int}")]
     public partial class ModificarAlumno : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -112,7 +119,7 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 94 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarAlumno.razor"
+#line 95 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarAlumno.razor"
       
     [Parameter]
     public int id { get; set; }
@@ -123,7 +130,7 @@ using ModeloClasesAlumnos;
     String textoError = String.Empty;
 
     Login l = new Login();
-    Usuario u = new Usuario();
+    UsuarioAPI u = new UsuarioAPI();
 
     protected override async Task OnInitializedAsync()
     {

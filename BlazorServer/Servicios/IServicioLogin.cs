@@ -8,6 +8,7 @@ namespace BlazorServer.Servicios
 {
     public interface IServicioLogin
     {
-        Task<Usuario> SolicitudLogin(Login l);
+        Task<UsuarioAPI> SolicitudLogin(Login l);
+        Task<UsuarioLogin> CrearUsuario(UsuarioLogin usuario);
     }
 }

@@ -96,6 +96,13 @@ using ModeloClasesAlumnos;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\IniciarSesion.razor"
+using BlazorServer.Servicios;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/IniciarSesion")]
     public partial class IniciarSesion : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -105,7 +112,7 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 39 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\IniciarSesion.razor"
+#line 43 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\IniciarSesion.razor"
        
     UsuarioLogin usuario = new UsuarioLogin();
     public string LoginMensaje { get; set; }
@@ -118,14 +125,21 @@ using ModeloClasesAlumnos;
     private async Task<bool> ValidarUsuario()
     {
 
-        //Llamaremos a nuestra API para validar al usuario
+        //Llamaremos a nuestra API para validar al usuario en el siguiente
 
+        ((MiServicioAuthenticationStateProvider)AuthenticationStateProvider).UsuarioAutenticado(usuario.EmailLogin);
+        await almacenarSesion.SetItemAsync("email", usuario.EmailLogin);
+
+        navigationmanager.NavigateTo("/index");
         return await Task.FromResult(true);
     }
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationmanager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private Blazored.SessionStorage.ISessionStorageService almacenarSesion { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591

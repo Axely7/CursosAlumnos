@@ -1,5 +1,6 @@
 ﻿@page "/nuevoAlumno"
 @inherits NuevoAlumnoBase
+@attribute [Authorize]
 
 <EditForm Model="@alumno" OnInvalidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator></DataAnnotationsValidator>

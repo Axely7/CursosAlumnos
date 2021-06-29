@@ -103,6 +103,13 @@ using ModeloClasesAlumnos;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 7 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ListaCursos.razor"
+           [Authorize]
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/ListaCursos")]
     public partial class ListaCursos : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -122,7 +129,7 @@ using ModeloClasesAlumnos;
     String textoError = String.Empty;
 
     Login l = new Login();
-    Usuario u = new Usuario();
+    UsuarioAPI u = new UsuarioAPI();
 
     //Recordar que pasando -1 nos devolvia todos los cursos sin filtrar por alumno
     protected override async Task OnInitializedAsync()

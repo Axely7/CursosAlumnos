@@ -96,6 +96,13 @@ using ModeloClasesAlumnos;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 5 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\Registrarse.razor"
+using BlazorServer.Servicios;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Registrarse")]
     public partial class Registrarse : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -105,24 +112,54 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 42 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\Registrarse.razor"
+#line 74 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\Registrarse.razor"
        
     UsuarioLogin usuario = new UsuarioLogin();
+    public String textoError = String.Empty;
+    public Boolean mostrarError = false;
 
+    Login l = new Login();
+    UsuarioAPI u = new UsuarioAPI();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            l.Usuario = Environment.GetEnvironmentVariable("UsuarioAPI");
+            l.Password = Environment.GetEnvironmentVariable("UsuarioAPI");
+            u = (await ServicioLogin.SolicitudLogin(l));
+            Environment.SetEnvironmentVariable("Token", u.Token);
+        }
+        catch (Exception ex)
+        {
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
+        }
+    }
 
     protected async Task Guardar()
     {
         try
         {
-            //Guardamos el usuario en nuesttra base de datos
+
+
+            if (usuario.EmailLogin != null && usuario.Password != null)
+            {
+                usuario = (await ServicioLogin.CrearUsuario(usuario));
+                navigationManager.NavigateTo("/IniciarSesion");
+            }
         }
         catch (Exception ex)
         {
-            //textoError = ex.Message;
-            //MostrarError();
-            //StateHasChanged();
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
         }
     }
+
 
     public void HandleValidSubmit()
     {
@@ -134,9 +171,20 @@ using ModeloClasesAlumnos;
         navigationManager.NavigateTo("/IniciarSesion");
     }
 
+    protected void CerrarError()
+    {
+        mostrarError = false;
+    }
+
+    protected void MostrarError()
+    {
+        mostrarError = true;
+    }
+
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioLogin ServicioLogin { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
     }
 }

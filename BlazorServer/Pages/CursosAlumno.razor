@@ -4,6 +4,7 @@
 @inject IServicioAlumnos ServicioAlumnos
 @inject NavigationManager navigationManager
 @inject IServicioLogin ServicioLogin
+@attribute [Authorize]
 
 <h1>Listado cursos</h1>
 <div class="form-group row">
@@ -94,7 +95,7 @@ else
     String textoError = String.Empty;
 
     Login l = new Login();
-    Usuario u = new Usuario();
+    UsuarioAPI u = new UsuarioAPI();
 
     protected override async Task OnInitializedAsync()
     {

@@ -25,7 +25,7 @@ namespace BlazorServer.Pages
         public Boolean mostrarError = false;
         public String textoError = String.Empty;
         Login l = new Login();
-        Usuario u = new Usuario();
+        UsuarioAPI u = new UsuarioAPI();
 
         public void HandleValidSubmit()
         {

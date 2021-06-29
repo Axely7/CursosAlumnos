@@ -1,6 +1,9 @@
 ﻿@page "/Registrarse"
 @inject NavigationManager navigationManager
 @using ModeloClasesAlumnos
+@inject IServicioLogin ServicioLogin
+@using BlazorServer.Servicios;
+
 
 
 <EditForm Model="@usuario" OnValidSubmit="HandleValidSubmit">
@@ -24,8 +27,8 @@
         </label>
         <div class="col-sm-10">
             <InputText type="password" id="Email" class="form-control" placeholder="Password"
-                       @bind-Value="usuario.EmailPassword" />
-            <ValidationMessage For="@(() => usuario.EmailPassword)" />
+                       @bind-Value="usuario.Password" />
+            <ValidationMessage For="@(() => usuario.Password)" />
         </div>
     </div>
 
@@ -39,23 +42,82 @@
 
 </EditForm>
 
+
+@if (mostrarError)
+{
+    <div class="modal bg-secondary" tabindex="-1" style="display:block;" role="dialog">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content ">
+                <div class="modal-header justify-content-center bg-info">
+                    <div>
+                        <strong>Se produjo un error al realizar la operación.</strong>
+                    </div>
+                    <button type="button" class="close"
+                            @onclick="CerrarError">
+                        <i class="large material-icons">cancel</i>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Ooops!</h4>
+                    <p>@textoError</p>
+                    <button class="btn btn-success" @onclick="CerrarError" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
 @code {
     UsuarioLogin usuario = new UsuarioLogin();
+    public String textoError = String.Empty;
+    public Boolean mostrarError = false;
 
+    Login l = new Login();
+    UsuarioAPI u = new UsuarioAPI();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            l.Usuario = Environment.GetEnvironmentVariable("UsuarioAPI");
+            l.Password = Environment.GetEnvironmentVariable("UsuarioAPI");
+            u = (await ServicioLogin.SolicitudLogin(l));
+            Environment.SetEnvironmentVariable("Token", u.Token);
+        }
+        catch (Exception ex)
+        {
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
+        }
+    }
 
     protected async Task Guardar()
     {
         try
         {
-            //Guardamos el usuario en nuesttra base de datos
+
+
+            if (usuario.EmailLogin != null && usuario.Password != null)
+            {
+                usuario = (await ServicioLogin.CrearUsuario(usuario));
+                navigationManager.NavigateTo("/IniciarSesion");
+            }
         }
         catch (Exception ex)
         {
-            //textoError = ex.Message;
-            //MostrarError();
-            //StateHasChanged();
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
         }
     }
+
 
     public void HandleValidSubmit()
     {
@@ -65,5 +127,15 @@
     protected void Cancelar()
     {
         navigationManager.NavigateTo("/IniciarSesion");
+    }
+
+    protected void CerrarError()
+    {
+        mostrarError = false;
+    }
+
+    protected void MostrarError()
+    {
+        mostrarError = true;
     }
 }

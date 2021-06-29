@@ -4,6 +4,7 @@
 @inject IServicioCursos ServicioCurso
 @inject NavigationManager navigationManager
 @inject IServicioLogin SevicioLogin
+@attribute [Authorize]
 
 <h3>Nuevo Curso</h3>
 <hr />
@@ -88,7 +89,7 @@
     Boolean mostrarError = false;
     String textoError = String.Empty;
     Login l = new Login();
-    Usuario u = new Usuario();
+    UsuarioAPI u = new UsuarioAPI();
 
     public void HandleValidSubmit()
     {

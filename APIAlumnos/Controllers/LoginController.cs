@@ -1,4 +1,6 @@
 ﻿using APIAlumnos.Datos;
+using APIAlumnos.Repositorio;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using ModeloClasesAlumnos;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -21,17 +24,20 @@ namespace APIAlumnos.Controllers
     {
         private readonly IConfiguration configuration;
         private readonly ILogger<LoginController> log;
-        public LoginController(IConfiguration configuration, ILogger<LoginController> l)
+        private readonly IRepositorioUsuarios usuariosRepositorio;
+
+        public LoginController(IConfiguration configuration, ILogger<LoginController> l, IRepositorioUsuarios usuariosRepositorio)
         {
             this.configuration = configuration;
             this.log = l;
+            this.usuariosRepositorio = usuariosRepositorio;
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult<Usuario>> Login(Login usuarioLogin)
+        public async Task<ActionResult<UsuarioAPI>> Login(Login usuarioLogin)
         {
-            Usuario infoUsuario = null;
+            UsuarioAPI infoUsuario = null;
             try
             {
                 infoUsuario = await AutenticarUsuarioAsync(usuarioLogin.Usuario, usuarioLogin.Password);
@@ -42,7 +48,7 @@ namespace APIAlumnos.Controllers
             }
             catch (Exception ex)
             {
-                infoUsuario = new Usuario();
+                infoUsuario = new UsuarioAPI();
                 log.LogError("Se produjo un error al autenticar en el método Login" + ex.ToString());
 
                 infoUsuario.error = new Error();
@@ -53,13 +59,13 @@ namespace APIAlumnos.Controllers
         }
 
 
-        private async Task<Usuario> AutenticarUsuarioAsync(string usuario, string password)
+        private async Task<UsuarioAPI> AutenticarUsuarioAsync(string usuario, string password)
         {
             //Validamos que el usuario exista en nuestro fichero de configuración.
             // Podriamos validarlo contra la BBDD
             if (configuration["UsuarioAPI"] == usuario && configuration["UsuarioAPI"] == password)
             {
-                return new Usuario()
+                return new UsuarioAPI()
                 {
                     Nombre = configuration["NombreUsuario"],
                     Apellidos = configuration["ApellidosUsuario"],
@@ -71,7 +77,7 @@ namespace APIAlumnos.Controllers
         }
 
         // Generamos Token
-        private Usuario GenerarTokenJWT(Usuario usuarioInfo)
+        private UsuarioAPI GenerarTokenJWT(UsuarioAPI usuarioInfo)
         {
             // Cabecera
             var _symmetricSecurityKey = new SymmetricSecurityKey(
@@ -106,6 +112,39 @@ namespace APIAlumnos.Controllers
             usuarioInfo.Token = new JwtSecurityTokenHandler().WriteToken(_Token);
 
             return usuarioInfo;
+        }
+
+        [HttpPost]
+        [Route("CrearUsuario")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<ActionResult<UsuarioLogin>> CrearUsuario(UsuarioLogin usuario)
+        {
+
+            UsuarioLogin resultado = new UsuarioLogin();
+            try
+            {
+                if (usuario == null)
+                    return BadRequest();
+
+                resultado = await usuariosRepositorio.AltaUsuario(usuario);
+
+
+            }
+            catch (SqlException ex)
+            {
+                resultado.error = new Error();
+                log.LogError("Se produjo un error en el controlador de alumnos en el método CrearUsuario:" + ex.ToString());
+                resultado.error.mensaje = "Error dando de alta nuevo usuario" + ex.Message;
+                resultado.error.mostrarUsuario = true;
+            }
+            catch (Exception ex)
+            {
+                resultado.error = new Error();
+                log.LogError("Se produjo un error en el controlador de alumnos en el método CrearUsuario:" + ex.ToString());
+                resultado.error.mensaje = ex.ToString();
+                resultado.error.mostrarUsuario = false;
+            }
+            return resultado;
         }
     }
 }

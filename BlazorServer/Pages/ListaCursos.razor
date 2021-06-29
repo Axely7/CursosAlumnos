@@ -4,7 +4,7 @@
 @inject IServicioCursos ServicioCurso
 @inject NavigationManager navigationmanager
 @inject IServicioLogin SevicioLogin
-
+@attribute [Authorize]
 
 <h3>Lista Cursos</h3>
 
@@ -118,7 +118,7 @@ else
     String textoError = String.Empty;
 
     Login l = new Login();
-    Usuario u = new Usuario();
+    UsuarioAPI u = new UsuarioAPI();
 
     //Recordar que pasando -1 nos devolvia todos los cursos sin filtrar por alumno
     protected override async Task OnInitializedAsync()

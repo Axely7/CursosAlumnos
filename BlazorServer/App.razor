@@ -1,12 +1,16 @@
 ﻿
 <Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
     </Found>
     <NotFound>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <h1 class="text-danger">Error de dirección</h1>
-            <p class="text-danger">Vaya a otra p&aacute;gina de nuestra aplicación</p>
-        </LayoutView>
+        <CascadingAuthenticationState>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <h1 class="text-danger">Aqui no hay nada!!!!!</h1>
+                <p class="text-danger">Vaya a otra p&aacute;gina de nuestra aplicaci&oacute;n</p>
+            </LayoutView>
+        </CascadingAuthenticationState>
     </NotFound>
 </Router>
+
+

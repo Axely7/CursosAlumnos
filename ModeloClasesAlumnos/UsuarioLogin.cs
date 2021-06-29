@@ -7,12 +7,13 @@ namespace ModeloClasesAlumnos
 {
     public class UsuarioLogin
     {
+        public int Id { get; set; }
         [Required(ErrorMessage = "El email es obligatorio")]
+        [EmailAddress(ErrorMessage = "Formato de email incorrecto")]
         public string EmailLogin { get; set; }
 
         [Required(ErrorMessage = "El campo password es obligatorio")]
-        [EmailAddress(ErrorMessage = "Formato de email incorrecto")]
-        public string EmailPassword { get; set; }
+        public string Password { get; set; }
         public Error error { get; set; }
 
     }

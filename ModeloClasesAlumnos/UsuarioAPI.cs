@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ModeloClasesAlumnos
 {
-    public class Usuario
+    public class UsuarioAPI
     {
         public string Nombre { get; set; }
         public string Apellidos { get; set; }

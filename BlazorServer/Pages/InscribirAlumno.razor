@@ -5,6 +5,7 @@
 @inject IServicioCursos ServicioCursos
 @inject NavigationManager navigationManager
 @inject IServicioLogin SevicioLogin
+@attribute [Authorize]
 
 <h1>Inscribir Alumno</h1>
 
@@ -91,7 +92,7 @@ else
     String textoError = String.Empty;
 
     Login l = new Login();
-    Usuario u = new Usuario();
+    UsuarioAPI u = new UsuarioAPI();
 
     protected override async Task OnInitializedAsync()
     {
