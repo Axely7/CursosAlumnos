@@ -37,5 +37,12 @@ namespace BlazorServer.Servicios
             return await httpClient.PutJsonAsync<Curso>("API/Cursos/" + id.ToString(), curso);
         }
 
+        public async Task BorrarCurso(int id)
+        {
+            HttpResponseMessage response = await httpClient.DeleteAsync($"API/Cursos/{id}");
+            if (!response.IsSuccessStatusCode)
+                throw new Exception("Se produjo un error borrando a nuestro cliente");
+        }
+
     }
 }

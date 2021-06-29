@@ -2,6 +2,7 @@
 @using BlazorServer.Servicios;
 @using ModeloClasesAlumnos;
 @inject IServicioCursos ServicioCurso
+@inject NavigationManager navigationmanager
 
 <h3>Lista Cursos</h3>
 
@@ -44,7 +45,7 @@ else
                             <a href="@($"ModificarCurso/{c.Id}/{p.Id}")"  class="btn btn-primary m-1">Modificar</a>
                         </td>
                         <td>
-                            <input type="submit" class="btn btn-danger" value="Eliminar"/>
+                            <input type="submit" class="btn btn-danger" value="Eliminar" @onclick="(()=>Borrar(c.Id))"/>
                         </td>
                     </tr>
                 }
@@ -55,12 +56,67 @@ else
 }
 
 
+@if(MostrarPopUP) { 
+    <div class="modal" tabindex="-1" style="display:block" role="dialog">
+        <div class="modal-dialog">
+            <div class="model-content">
+                <div class="modal-header bg-light">
+                    <h3 class="text-danger">Dar de baja curso</h3>
+                    <button type="button" class="close" @onclick="CerrarPop">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+
+                <div class="modal-body bg-light">
+                    <strong class="text-danger">Va dar de baja este curso. Si esta seguro continue. Si no cierre esta ventana</strong>
+                    <br /><br />
+                    <button type="button" class="btn btn-danger" @onclick="(() => DarDeBaja(idCursoBorrar))">Dar de baja</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+
+
+
+
+
 @code {
     public List<Curso> listaCursos { get; set; } = new List<Curso>();
+    public Boolean MostrarPopUP = false;
+    public int idCursoBorrar = -1;
 
     //Recordar que pasando -1 nos devolvia todos los cursos sin filtrar por alumno
     protected override async Task OnInitializedAsync()
     {
         listaCursos = (await ServicioCurso.DameCursos(-1)).ToList();
     }
+
+    protected void Borrar(int curso)
+    {
+        idCursoBorrar = curso;
+        MostrarPopUP = true;
+    }
+
+    protected void CerrarPop()
+    {
+        MostrarPopUP = false;
+    }
+
+    protected async void DarDeBaja(int idCursoBorrar)
+    {
+        try
+        {
+            await ServicioCurso.BorrarCurso(idCursoBorrar);
+            CerrarPop();
+            navigationmanager.NavigateTo("listaCursos", true);
+        }
+        catch(Exception ex)
+            {
+            throw new Exception(ex.Message);
+            }
+        }
 }

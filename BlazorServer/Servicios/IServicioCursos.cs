@@ -12,5 +12,6 @@ namespace BlazorServer.Servicios
         Task<Curso> AltaCurso(Curso curso);
         Task<Curso> DameCurso(int Id, int idPrecio);
         Task<Curso> ModificarCurso(int id, Curso curso);
+        Task BorrarCurso(int id);
     }
 }

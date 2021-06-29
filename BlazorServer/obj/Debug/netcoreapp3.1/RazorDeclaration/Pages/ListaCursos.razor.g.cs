@@ -112,9 +112,11 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 58 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ListaCursos.razor"
+#line 87 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ListaCursos.razor"
        
     public List<Curso> listaCursos { get; set; } = new List<Curso>();
+    public Boolean MostrarPopUP = false;
+    public int idCursoBorrar = -1;
 
     //Recordar que pasando -1 nos devolvia todos los cursos sin filtrar por alumno
     protected override async Task OnInitializedAsync()
@@ -122,9 +124,35 @@ using ModeloClasesAlumnos;
         listaCursos = (await ServicioCurso.DameCursos(-1)).ToList();
     }
 
+    protected void Borrar(int curso)
+    {
+        idCursoBorrar = curso;
+        MostrarPopUP = true;
+    }
+
+    protected void CerrarPop()
+    {
+        MostrarPopUP = false;
+    }
+
+    protected async void DarDeBaja(int idCursoBorrar)
+    {
+        try
+        {
+            await ServicioCurso.BorrarCurso(idCursoBorrar);
+            CerrarPop();
+            navigationmanager.NavigateTo("listaCursos", true);
+        }
+        catch(Exception ex)
+            {
+            throw new Exception(ex.Message);
+            }
+        }
+
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationmanager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioCursos ServicioCurso { get; set; }
     }
 }
