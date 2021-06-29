@@ -19,6 +19,9 @@ namespace BlazorServer.Pages
         public Alumno alumno = new Alumno();
         public IFileListEntry fichero;
 
+        public Boolean mostrarError = false;
+        public String textoError = String.Empty;
+
         public void HandleValidSubmit()
         {
             //Para realizar las validaciones
@@ -27,16 +30,28 @@ namespace BlazorServer.Pages
 
         protected async Task Guardar()
         {
-            alumno.FechaAlta = DateTime.Now;
-            if(alumno.Nombre != null && alumno.Email != null && alumno.Foto != null)
+            try
             {
-                var ms = new MemoryStream();
-                await fichero.Data.CopyToAsync(ms);
-                string nombreFichero = "images/" + Guid.NewGuid() + ".jpg"; //Gnera ruta
-                using (FileStream file = new FileStream("wwwroot/" + nombreFichero, FileMode.Create, FileAccess.Write)) ms.WriteTo(file);
-                alumno.Foto = nombreFichero;
-                alumno = await ServicioAlumnos.CrearAlumno(alumno);
-                navigationManager.NavigateTo("/listaAlumnos");
+                alumno.FechaAlta = DateTime.Now;
+
+                if (alumno.Nombre != null && alumno.Email != null && alumno.Foto != null)
+                {
+                    var ms = new MemoryStream();
+                    await fichero.Data.CopyToAsync(ms);
+                    string nombreFichero = "images/" + Guid.NewGuid() + ".jpg";
+                    using (FileStream file = new FileStream("wwwroot/" + nombreFichero, FileMode.Create, FileAccess.Write))
+                        ms.WriteTo(file);
+
+                    alumno.Foto = nombreFichero;
+                    alumno = (await ServicioAlumnos.CrearAlumno(alumno));
+                    navigationManager.NavigateTo("/listaAlumnos");
+                }
+            }
+            catch (Exception ex)
+            {
+                textoError = ex.Message;
+                MostrarError();
+                StateHasChanged();
             }
         }
         protected void Cancelar()
@@ -57,6 +72,16 @@ namespace BlazorServer.Pages
             {
                 fichero = null;
             }
+        }
+
+        protected void CerrarError()
+        {
+            mostrarError = false;
+        }
+
+        protected void MostrarError()
+        {
+            mostrarError = true;
         }
     }
 }

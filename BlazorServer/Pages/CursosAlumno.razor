@@ -56,17 +56,67 @@ else
     </table>
 }
 
+@if (mostrarError)
+{
+    <div class="modal bg-secondary" tabindex="-1" style="display:block;" role="dialog">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content ">
+                <div class="modal-header justify-content-center bg-info">
+                    <div>
+                        <strong>Se produjo un error al realizar la operación.</strong>
+                    </div>
+                    <button type="button" class="close"
+                            @onclick="CerrarError">
+                        <i class="large material-icons">cancel</i>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Ooops!</h4>
+                    <p>@textoError</p>
+                    <button class="btn btn-success" @onclick="CerrarError" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
 
 @code {
     [Parameter]
     public int id { get; set; }
     private Alumno alumno;
 
+    Boolean mostrarError = false;
+    String textoError = String.Empty;
+
     protected override async Task OnInitializedAsync()
     {
-        if (id > 0)
+
+        try
         {
-            alumno = await ServicioAlumnos.CursosInscritosAlumno(id);
+            if (id > 0)
+            {
+                alumno = await ServicioAlumnos.CursosInscritosAlumno(id);
+            }
         }
+        catch (Exception ex)
+        {
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
+        }
+    }
+
+    protected void CerrarError()
+    {
+        mostrarError = false;
+    }
+
+    protected void MostrarError()
+    {
+        mostrarError = true;
     }
 }

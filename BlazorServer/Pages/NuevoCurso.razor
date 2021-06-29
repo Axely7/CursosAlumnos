@@ -22,7 +22,7 @@
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <ValidationSummary></ValidationSummary>
     <div class="form-group row">
-        <label for="Coste" class="col-sm-2 col-form-label" >Precio: </label>
+        <label for="Coste" class="col-sm-2 col-form-label">Precio: </label>
         <div class="col-sm-10">
             <InputNumber id="Coste" ParsingErrorMessage="Debe introducir un coste" class="form-control" placeholder="Precio del curso" @bind-Value="precio.Coste"></InputNumber>
             <ValidationMessage For="@(() => precio.Coste)"></ValidationMessage>
@@ -46,18 +46,46 @@
 
 <div class="row content">
     <div class="col-md-1">
-        <input type="submit" class="btn btn-primary" value="Guardar" @onclick="Guardar"/>
+        <input type="submit" class="btn btn-primary" value="Guardar" @onclick="Guardar" />
     </div>
     <div class="col-md-2">
-        <input type="button" value="Cancelar" class="btn btn-danger" @onclick="Cancelar"/>
+        <input type="button" value="Cancelar" class="btn btn-danger" @onclick="Cancelar" />
     </div>
 </div>
+
+@if (mostrarError)
+{
+    <div class="modal bg-secondary" tabindex="-1" style="display:block;" role="dialog">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content ">
+                <div class="modal-header justify-content-center bg-info">
+                    <div>
+                        <strong>Se produjo un error al realizar la operación.</strong>
+                    </div>
+                    <button type="button" class="close"
+                            @onclick="CerrarError">
+                        <i class="large material-icons">cancel</i>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Ooops!</h4>
+                    <p>@textoError</p>
+                    <button class="btn btn-success" @onclick="CerrarError" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 
 
 
 @code {
     Curso curso = new Curso();
     Precio precio = new Precio();
+
+    Boolean mostrarError = false;
+    String textoError = String.Empty;
 
     public void HandleValidSubmit()
     {
@@ -68,8 +96,8 @@
     {
         try
         {
-            if(curso.NombreCurso!=String.Empty &&
-                precio.Coste>=0 && precio.FechaFin!=null &&
+            if (curso.NombreCurso != String.Empty &&
+                precio.Coste >= 0 && precio.FechaFin != null &&
                 precio.FechaInicio != null)
             {
                 curso.ListaPrecios = new List<Precio>();
@@ -78,9 +106,11 @@
                 navigationManager.NavigateTo("/ListaCursos");
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
         }
 
     }
@@ -97,5 +127,15 @@
         precio.FechaInicio = DateTime.Now;
         precio.FechaFin = DateTime.Now.AddDays(30);
 
+    }
+
+    protected void CerrarError()
+    {
+        mostrarError = false;
+    }
+
+    protected void MostrarError()
+    {
+        mostrarError = true;
     }
 }

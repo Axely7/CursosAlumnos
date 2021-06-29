@@ -21,9 +21,21 @@ namespace BlazorServer.Pages
         public bool MostrarPopUP = false;
         public int idAlumnoBorrar = -1;
 
+        public Boolean mostrarError = false;
+        public String textoError = String.Empty;
+
         protected override async Task OnInitializedAsync()
         {
-            Alumnos = (await ServicioAlumnos.DameAlumnos()).ToList();
+            try
+            {
+                Alumnos = (await ServicioAlumnos.DameAlumnos()).ToList();
+            }
+            catch (Exception ex)
+            {
+                textoError = ex.Message;
+                MostrarError();
+                StateHasChanged();
+            }
         }
 
         protected void Borrar(int idAlumno)
@@ -40,9 +52,30 @@ namespace BlazorServer.Pages
 
         protected void DarDeBaja(int id)
         {
-            ServicioAlumnos.BorrarAlumno(id);
+            try
+            {
+                ServicioAlumnos.BorrarAlumno(id);
+                CerrarPop();
+                navigationManager.NavigateTo("listaAlumnos", true);
+            }
+            catch (Exception ex)
+            {
+                textoError = ex.Message;
+                MostrarError();
+                StateHasChanged();
+            }
+        }
+
+        protected void CerrarError()
+        {
+            mostrarError = false;
             CerrarPop();
-            navigationManager.NavigateTo("listaAlumnos", true);
+        }
+
+        protected void MostrarError()
+        {
+            CerrarPop();
+            mostrarError = true;
         }
     }
 

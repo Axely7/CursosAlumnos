@@ -283,10 +283,7 @@ namespace APIAlumnos.Repositorio
                 }
 
             }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error buscando los datos de nuestro alumno " + ex.Message);
-            }
+           
             finally
             {
                 if (reader != null)

@@ -13,7 +13,7 @@
                 <h1>@alumno.Nombre</h1>
             </div>
             <div class="card-body text-center">
-                <img class="card-img-top" src="@alumno.Foto"/>
+                <img class="card-img-top" src="@alumno.Foto" />
             </div>
         </div>
         <EditForm Model="@alumno" OnValidSubmit="HandleValidSubmit">
@@ -63,18 +63,59 @@
     </div>
 </div>
 
+@if (mostrarError)
+{
+    <div class="modal bg-secondary" tabindex="-1" style="display:block;" role="dialog">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content ">
+                <div class="modal-header justify-content-center bg-info">
+                    <div>
+                        <strong>Se produjo un error al realizar la operación.</strong>
+                    </div>
+                    <button type="button" class="close"
+                            @onclick="CerrarError">
+                        <i class="large material-icons">cancel</i>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Ooops!</h4>
+                    <p>@textoError</p>
+                    <button class="btn btn-success" @onclick="CerrarError" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
 @code{
     [Parameter]
     public int id { get; set; }
     Alumno alumno = new Alumno();
     IFileListEntry fichero;
 
+    Boolean mostrarError = false;
+    String textoError = String.Empty;
+
     protected override async Task OnInitializedAsync()
     {
-        if(id > 0)
+        try
         {
-            alumno = await ServicioAlumnos.DameAlumno(id);
+
+            if (id > 0)
+            {
+                alumno = await ServicioAlumnos.DameAlumno(id);
+            }
         }
+        catch (Exception ex)
+        {
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
+        }
+
     }
 
     public void HandleValidSubmit()
@@ -94,9 +135,9 @@
     {
         try
         {
-            if(alumno.Nombre != null && alumno.Email != null)
+            if (alumno.Nombre != null && alumno.Email != null)
             {
-                if(fichero != null && fichero.Data != null)
+                if (fichero != null && fichero.Data != null)
                 {
                     var ms = new MemoryStream();
                     await fichero.Data.CopyToAsync(ms);
@@ -110,9 +151,11 @@
                 navigationManager.NavigateTo("/listaAlumnos");
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
         }
 
     }
@@ -129,6 +172,17 @@
             estaDeBaja = true;
 
         return estaDeBaja;
+    }
+
+    protected void CerrarError()
+    {
+        mostrarError = false;
+    }
+
+    protected void MostrarError()
+    {
+
+        mostrarError = true;
     }
 
 }

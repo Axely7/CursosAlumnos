@@ -9,19 +9,20 @@
 <h1>Inscribir Alumno</h1>
 
 
-@if(listaCursos == null)
+@if (listaCursos == null)
 {
     <div class="spinner"></div>
 }
-else if(alumno.FechaBaja != null)
+else if (alumno.FechaBaja != null)
 {
     <p class="text-danger">Este alumno está de baja.</p>
 }
-else if(listaCursos.Count == 0)
+else if (listaCursos.Count == 0)
 {
     <p class="text-danger">No hay cursos disponibles</p>
 }
-else{
+else
+{
     <table class="table">
         <thead>
             <tr>
@@ -32,27 +33,50 @@ else{
             </tr>
         </thead>
         <tbody>
-            @foreach(Curso c in listaCursos)
-                @foreach(Precio p in c.ListaPrecios)
-                    {
-                        <tr>
-                            <td>@c.NombreCurso</td>
-                            <td class="text-success"><strong>$@p.Coste</strong></td>
-                            <td>@p.FechaInicio.ToString("dd/MM/yyyy")</td>
-                            <td>@p.FechaFin.ToString("dd/MM/yyyy")</td>
-                            @if (DateTime.Now >= p.FechaInicio && DateTime.Now<p.FechaFin)
-                            {
-                                <td>
-                                    <input type="submit" class="btn btn-primary" value="Inscribir" @onclick="(() => Inscribir(c.Id, p.Id))" />
-                                </td>
-                            }      
-                        </tr>
-                    }
+            @foreach (Curso c in listaCursos)
+                @foreach (Precio p in c.ListaPrecios)
+                {
+                    <tr>
+                        <td>@c.NombreCurso</td>
+                        <td class="text-success"><strong>$@p.Coste</strong></td>
+                        <td>@p.FechaInicio.ToString("dd/MM/yyyy")</td>
+                        <td>@p.FechaFin.ToString("dd/MM/yyyy")</td>
+                        @if (DateTime.Now >= p.FechaInicio && DateTime.Now < p.FechaFin)
+                        {
+                            <td>
+                                <input type="submit" class="btn btn-primary" value="Inscribir" @onclick="(() => Inscribir(c.Id, p.Id))" />
+                            </td>
+                        }
+                    </tr>
+                }
         </tbody>
 
     </table>
 }
 
+@if (mostrarError)
+{
+    <div class="modal bg-secondary" tabindex="-1" style="display:block;" role="dialog">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content ">
+                <div class="modal-header justify-content-center bg-info">
+                    <div>
+                        <strong>Se produjo un error al realizar la operación.</strong>
+                    </div>
+                    <button type="button" class="close"
+                            @onclick="CerrarError">
+                        <i class="large material-icons">cancel</i>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Ooops!</h4>
+                    <p>@textoError</p>
+                    <button class="btn btn-success" @onclick="CerrarError" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 
 
@@ -63,11 +87,23 @@ else{
 
     public List<Curso> listaCursos { get; set; } = new List<Curso>();
     Alumno alumno = new Alumno();
+    Boolean mostrarError = false;
+    String textoError = String.Empty;
 
     protected override async Task OnInitializedAsync()
     {
-        listaCursos = (await ServicioCursos.DameCursos(id)).ToList();
-        alumno = (await ServicioAlumnos.DameAlumno(id));
+        try
+        {
+
+            listaCursos = (await ServicioCurso.DameCursos(id)).ToList();
+            alumno = (await ServicioAlumnos.DameAlumno(id));
+        }
+        catch (Exception ex)
+        {
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
+        }
     }
 
     protected async Task Inscribir(int idCurso, int idprecio)
@@ -77,10 +113,24 @@ else{
             alumno = (await ServicioAlumnos.CursosInscribirAlumno(alumno, idCurso, idprecio));
             navigationManager.NavigateTo("/ListaCursosAlumno/" + id);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
         }
+    }
+
+    protected void CerrarError()
+    {
+        mostrarError = false;
+
+    }
+
+    protected void MostrarError()
+    {
+
+        mostrarError = true;
     }
 
 }

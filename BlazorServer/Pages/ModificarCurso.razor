@@ -48,10 +48,10 @@
 
 <div class="row content">
     <div class="col-md-2">
-        <input type="submit" class="btn btn-primary" value="Guardar" @onclick="Modificar"/>
+        <input type="submit" class="btn btn-primary" value="Guardar" @onclick="Modificar" />
     </div>
     <div class="col-md-2">
-        <input type="button" value="Cancelar" class="btn btn-danger" @onclick="Cancelar"/>
+        <input type="button" value="Cancelar" class="btn btn-danger" @onclick="Cancelar" />
     </div>
 </div>
 
@@ -65,46 +65,68 @@
 
 @if (mostrarPrecio)
 {
-<EditForm Model="@nuevoPrecio" OnValidSubmit="HandleValidSubmit">
-    <DataAnnotationsValidator></DataAnnotationsValidator>
-    <ValidationSummary></ValidationSummary>
-    <div class="form-group row">
-        <label>Precio: </label>
-        <div class="col-sm-10">
-            <InputNumber id="Coste" ParsingErrorMessage="Debe introducir un coste" class="" @bind-Value="nuevoPrecio.Coste"></InputNumber>
-            <ValidationMessage For="@(()=> nuevoPrecio.Coste)"></ValidationMessage>
+    <EditForm Model="@nuevoPrecio" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+        <div class="form-group row">
+            <label>Precio: </label>
+            <div class="col-sm-10">
+                <InputNumber id="Coste" ParsingErrorMessage="Debe introducir un coste" class="" @bind-Value="nuevoPrecio.Coste"></InputNumber>
+                <ValidationMessage For="@(()=> nuevoPrecio.Coste)"></ValidationMessage>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        <label for="FechaInicio" class="col-sm-2 col-form-label">Fecha Inicio: </label>
-        <div class="col-sm-10">
-            <InputDate id="FechaInicio" ParsingErrorMessage="Debe seleccionar una fecha" class="form-control" @bind-Value="nuevoPrecio.FechaInicio"></InputDate>
-            <ValidationMessage For="@(()=>nuevoPrecio.FechaInicio)"></ValidationMessage>
+        <div class="form-group row">
+            <label for="FechaInicio" class="col-sm-2 col-form-label">Fecha Inicio: </label>
+            <div class="col-sm-10">
+                <InputDate id="FechaInicio" ParsingErrorMessage="Debe seleccionar una fecha" class="form-control" @bind-Value="nuevoPrecio.FechaInicio"></InputDate>
+                <ValidationMessage For="@(()=>nuevoPrecio.FechaInicio)"></ValidationMessage>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group row">
-        <label for="FechaFin" class="col-sm-2 col-form-label">Fecha fin: </label>
-        <div class="col-sm-10">
-            <InputDate id="FechaFin" ParsingErrorMessage="Debe seleccionar una fecha" class="form-control" @bind-Value="nuevoPrecio.FechaFin"></InputDate>
-            <ValidationMessage For="@(()=>nuevoPrecio.FechaFin)"></ValidationMessage>
+        <div class="form-group row">
+            <label for="FechaFin" class="col-sm-2 col-form-label">Fecha fin: </label>
+            <div class="col-sm-10">
+                <InputDate id="FechaFin" ParsingErrorMessage="Debe seleccionar una fecha" class="form-control" @bind-Value="nuevoPrecio.FechaFin"></InputDate>
+                <ValidationMessage For="@(()=>nuevoPrecio.FechaFin)"></ValidationMessage>
+            </div>
         </div>
-    </div>
 
-    <div class="row content">
-        <div class="col-md-2">
-            <input type="submit" class="btn btn-info" value="Agregar" @onclick="GuardarPrecio"/>
+        <div class="row content">
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-info" value="Agregar" @onclick="GuardarPrecio" />
+            </div>
+            <div class="col-md-2">
+                <input type="button" value="Cancelar" class="btn btn-dark" @onclick="MostrarNuevoPrecio" />
+            </div>
         </div>
-        <div class="col-md-2">
-            <input type="button" value="Cancelar" class="btn btn-dark" @onclick="MostrarNuevoPrecio"/>
-        </div>
-    </div>
 
-</EditForm>
+    </EditForm>
 }
 
-
+@if (mostrarError)
+{
+    <div class="modal bg-secondary" tabindex="-1" style="display:block;" role="dialog">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content ">
+                <div class="modal-header justify-content-center bg-info">
+                    <div>
+                        <strong>Se produjo un error al realizar la operación.</strong>
+                    </div>
+                    <button type="button" class="close"
+                            @onclick="CerrarError">
+                        <i class="large material-icons">cancel</i>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Ooops!</h4>
+                    <p>@textoError</p>
+                    <button class="btn btn-success" @onclick="CerrarError" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 
 
@@ -121,6 +143,9 @@
     Precio nuevoPrecio = new Precio();
     Boolean mostrarPrecio = false;
 
+    Boolean mostrarError = false;
+    String textoError = String.Empty;
+
     public void HandleValidSubmit()
     {
         Console.WriteLine("OnValidSubmit");
@@ -128,14 +153,23 @@
 
     protected override async Task OnInitializedAsync()
     {
-        if (idCurso > 0)
+        try
         {
-            curso = await ServicioCurso.DameCurso(idCurso, idPrecio);
-            precio = curso.ListaPrecios[0];
+            if (idCurso > 0)
+            {
+                curso = await ServicioCurso.DameCurso(idCurso, idPrecio);
+                precio = curso.ListaPrecios[0];
 
-            nuevoPrecio.Coste = 19.99;
-            nuevoPrecio.FechaInicio = DateTime.Now;
-            nuevoPrecio.FechaFin = DateTime.Now.AddDays(30);
+                nuevoPrecio.Coste = 19.99;
+                nuevoPrecio.FechaInicio = DateTime.Now;
+                nuevoPrecio.fechaFin = DateTime.Now.AddDays(30);
+            }
+        }
+        catch (Exception ex)
+        {
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
         }
     }
 
@@ -143,7 +177,7 @@
     {
         try
         {
-            if(curso.NombreCurso != String.Empty &&
+            if (curso.NombreCurso != String.Empty &&
                 precio.Coste >= 0 && precio.FechaFin != null &&
                 precio.FechaInicio != null)
             {
@@ -152,9 +186,11 @@
                 navigationManager.NavigateTo("/listaCursos");
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
         }
     }
 
@@ -173,16 +209,39 @@
 
     protected async void GuardarPrecio()
     {
-        if(curso.NombreCurso != String.Empty &&
-            nuevoPrecio.Coste >= 0 && nuevoPrecio.FechaFin != null &&
-            nuevoPrecio.FechaInicio != null)
+        try
         {
-            curso.ListaPrecios[0] = precio;
-            curso.ListaPrecios.Add(nuevoPrecio);
 
-            curso = await ServicioCurso.ModificarCurso(idCurso, curso);
-            navigationManager.NavigateTo("/listaCursos");
+            if (nuevoPrecio.Coste >= 0 && nuevoPrecio.fechaFin != null &&
+               nuevoPrecio.FechaInicio != null)
+            {
+
+                curso.ListaPrecios[0] = precio;
+                curso.ListaPrecios.Add(nuevoPrecio);
+
+                curso = await ServicioCurso.ModificarCurso(idCurso, curso);
+
+                navigationManager.NavigateTo("/listaCursos");
+            }
         }
+        catch (Exception ex)
+        {
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
+        }
+    }
+
+    protected void CerrarError()
+    {
+        mostrarError = false;
+
+    }
+
+    protected void MostrarError()
+    {
+
+        mostrarError = true;
     }
 
 }

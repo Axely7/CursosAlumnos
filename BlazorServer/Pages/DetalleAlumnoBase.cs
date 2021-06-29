@@ -16,9 +16,32 @@ namespace BlazorServer.Pages
         public string Id { get; set; }
         public Alumno alumno { get; set; } = new Alumno();
 
+        public Boolean mostrarError = false;
+        public String textoError = String.Empty;
+
         protected override async Task OnInitializedAsync()
         {
-            alumno = (await ServicioAlumnos.DameAlumno(Convert.ToInt32(Id)));
+            try
+            {
+                alumno = (await ServicioAlumnos.DameAlumno(Convert.ToInt32(Id)));
+            }
+            catch (Exception ex)
+            {
+                textoError = ex.Message;
+                MostrarError();
+                StateHasChanged();
+            }
+
+        }
+
+        protected void CerrarError()
+        {
+            mostrarError = false;
+        }
+
+        protected void MostrarError()
+        {
+            mostrarError = true;
         }
     }
 }
