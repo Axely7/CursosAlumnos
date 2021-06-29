@@ -9,12 +9,13 @@ using ModeloClasesAlumnos;
 using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace APIAlumnos.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class AlumnosController:ControllerBase
     {
         private readonly IRepositorioAlumnos alumnosRepositorio;

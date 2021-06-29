@@ -127,6 +127,9 @@ using ModeloClasesAlumnos;
     Boolean mostrarError = false;
     String textoError = String.Empty;
 
+    Login l = new Login();
+    Usuario u = new Usuario();
+
     public void HandleValidSubmit()
     {
         Console.WriteLine("OnValidSubmit");
@@ -136,6 +139,11 @@ using ModeloClasesAlumnos;
     {
         try
         {
+            l.Usuario = Environment.GetEnvironmentVariable("UsuarioAPI");
+            l.Password = Environment.GetEnvironmentVariable("UsuarioAPI");
+            u = (await SevicioLogin.SolicitudLogin(l));
+            Environment.SetEnvironmentVariable("Token", u.Token);
+
             if (idCurso > 0)
             {
                 curso = await ServicioCurso.DameCurso(idCurso, idPrecio);
@@ -229,6 +237,7 @@ using ModeloClasesAlumnos;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioLogin SevicioLogin { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioCursos ServicioCurso { get; set; }
     }

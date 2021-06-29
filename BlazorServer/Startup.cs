@@ -39,6 +39,11 @@ namespace BlazorServer
             {
                 cliente.BaseAddress = new Uri(Configuration["RutaApi"]);
             });
+
+            services.AddHttpClient<IServicioLogin, ServicioLogin>(login =>
+            {
+                login.BaseAddress = new Uri(Configuration["RutaApi"]);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

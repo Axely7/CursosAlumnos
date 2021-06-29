@@ -112,7 +112,7 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 110 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ListaCursos.razor"
+#line 112 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ListaCursos.razor"
        
     public List<Curso> listaCursos { get; set; } = new List<Curso>();
     public Boolean MostrarPopUP = false;
@@ -121,11 +121,18 @@ using ModeloClasesAlumnos;
     Boolean mostrarError = false;
     String textoError = String.Empty;
 
+    Login l = new Login();
+    Usuario u = new Usuario();
+
     //Recordar que pasando -1 nos devolvia todos los cursos sin filtrar por alumno
     protected override async Task OnInitializedAsync()
     {
         try
         {
+            l.Usuario = Environment.GetEnvironmentVariable("UsuarioAPI");
+            l.Password = Environment.GetEnvironmentVariable("UsuarioAPI");
+            u = (await SevicioLogin.SolicitudLogin(l));
+            Environment.SetEnvironmentVariable("Token", u.Token);
 
             mostrarError = false;
             listaCursos = (await ServicioCurso.DameCursos(-1)).ToList();
@@ -181,6 +188,7 @@ using ModeloClasesAlumnos;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioLogin SevicioLogin { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationmanager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioCursos ServicioCurso { get; set; }
     }

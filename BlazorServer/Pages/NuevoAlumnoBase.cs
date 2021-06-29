@@ -16,16 +16,39 @@ namespace BlazorServer.Pages
         public IServicioAlumnos ServicioAlumnos { get; set; }
         [Inject]
         public NavigationManager navigationManager { get; set; } //Redirige a diferentes paginas
+        [Inject]
+        public IServicioLogin ServicioLogin { get; set; }
+
         public Alumno alumno = new Alumno();
         public IFileListEntry fichero;
 
         public Boolean mostrarError = false;
         public String textoError = String.Empty;
+        Login l = new Login();
+        Usuario u = new Usuario();
 
         public void HandleValidSubmit()
         {
             //Para realizar las validaciones
             Console.WriteLine("OnValidSubmit");
+        }
+
+        protected override async Task OnInitializedAsync()
+        {
+
+            try
+            {
+                l.Usuario = Environment.GetEnvironmentVariable("UsuarioAPI");
+                l.Password = Environment.GetEnvironmentVariable("UsuarioAPI");
+                u = (await ServicioLogin.SolicitudLogin(l));
+                Environment.SetEnvironmentVariable("Token", u.Token);
+            }
+            catch (Exception ex)
+            {
+                textoError = ex.Message;
+                MostrarError();
+                StateHasChanged();
+            }
         }
 
         protected async Task Guardar()

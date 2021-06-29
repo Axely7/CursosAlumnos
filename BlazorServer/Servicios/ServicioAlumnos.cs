@@ -7,6 +7,7 @@ using System.Net.Http; //para realizar peticion a servicios
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 using System.Net;
+using System.Net.Http.Headers;
 
 namespace BlazorServer.Servicios
 {
@@ -23,6 +24,8 @@ namespace BlazorServer.Servicios
 
         public async Task<IEnumerable<Alumno>> DameAlumnos()
         {
+            string token = Environment.GetEnvironmentVariable("Token");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             List<Alumno> alu = await httpClient.GetJsonAsync<List<Alumno>>("API/Alumnos");
             if(alu !=  null && alu[0].error != null && alu[0].error.mensaje != String.Empty)
             {
@@ -42,6 +45,8 @@ namespace BlazorServer.Servicios
 
         public async Task<Alumno> DameAlumno(int id)
         {
+            string token = Environment.GetEnvironmentVariable("Token");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             Alumno alu = await httpClient.GetJsonAsync<Alumno>("API/Alumnos/" + id.ToString());
             if(alu.error != null && alu.error.mensaje != String.Empty)
             {
@@ -61,6 +66,8 @@ namespace BlazorServer.Servicios
 
         public async Task<Alumno> CrearAlumno(Alumno alumno)
         {
+            string token = Environment.GetEnvironmentVariable("Token");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             Alumno alu = await httpClient.PostJsonAsync<Alumno>("API/Alumnos/", alumno);
             if(alu.error != null && alu.error.mensaje != String.Empty)
             {
@@ -80,6 +87,8 @@ namespace BlazorServer.Servicios
 
         public async Task<Alumno> ModificarAlumno(int id, Alumno alumno)
         {
+            string token = Environment.GetEnvironmentVariable("Token");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             Alumno alu =  await httpClient.PutJsonAsync<Alumno>("API/Alumnos/" + id.ToString(), alumno);
             if(alu.error != null && alu.error.mensaje != String.Empty)
             {
@@ -99,6 +108,8 @@ namespace BlazorServer.Servicios
 
         public async Task BorrarAlumno(int id)
         {
+            string token = Environment.GetEnvironmentVariable("Token");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             HttpResponseMessage response = await httpClient.DeleteAsync($"API/Alumnos/{id}");
             if (!response.IsSuccessStatusCode)
             {
@@ -118,7 +129,8 @@ namespace BlazorServer.Servicios
 
         public async Task<Alumno> CursosInscritosAlumno(int id)
         {
-
+            string token = Environment.GetEnvironmentVariable("Token");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             Alumno alu = await httpClient.GetJsonAsync<Alumno>("API/Alumnos/CursosAlumno/" + id.ToString());
             if(alu.error != null && alu.error.mensaje != string.Empty)
             {
@@ -138,6 +150,8 @@ namespace BlazorServer.Servicios
 
         public async Task<Alumno> CursosInscribirAlumno(Alumno alumno, int idCurso, int idprecio)
         {
+            string token = Environment.GetEnvironmentVariable("Token");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             Alumno alu = await httpClient.PostJsonAsync<Alumno>("API/Alumnos/InscribirAlumno/" + idCurso.ToString() + "/" + idprecio.ToString(), alumno);
             if(alu.error != null && alu.error.mensaje != String.Empty)
             {

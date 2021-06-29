@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using ModeloClasesAlumnos;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -18,25 +20,36 @@ namespace APIAlumnos.Controllers
     public class LoginController : ControllerBase
     {
         private readonly IConfiguration configuration;
-
-        public LoginController(IConfiguration configuration)
+        private readonly ILogger<LoginController> log;
+        public LoginController(IConfiguration configuration, ILogger<LoginController> l)
         {
             this.configuration = configuration;
+            this.log = l;
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(Login usuarioLogin)
+        public async Task<ActionResult<Usuario>> Login(Login usuarioLogin)
         {
-            var infoUsuario = await AutenticarUsuarioAsync(usuarioLogin.Usuario, usuarioLogin.Password);
-            if (infoUsuario != null)
+            Usuario infoUsuario = null;
+            try
             {
-                return Ok(new { token = GenerarTokenJWT(infoUsuario) });
+                infoUsuario = await AutenticarUsuarioAsync(usuarioLogin.Usuario, usuarioLogin.Password);
+                if (infoUsuario == null)
+                    throw new Exception("Credenciales no válidas");
+                else
+                    infoUsuario = GenerarTokenJWT(infoUsuario);
             }
-            else
+            catch (Exception ex)
             {
-                return Unauthorized();
+                infoUsuario = new Usuario();
+                log.LogError("Se produjo un error al autenticar en el método Login" + ex.ToString());
+
+                infoUsuario.error = new Error();
+                infoUsuario.error.mensaje = ex.ToString();
+                infoUsuario.error.mostrarUsuario = false;
             }
+            return infoUsuario;
         }
 
 
@@ -58,7 +71,7 @@ namespace APIAlumnos.Controllers
         }
 
         // Generamos Token
-        private string GenerarTokenJWT(Usuario usuarioInfo)
+        private Usuario GenerarTokenJWT(Usuario usuarioInfo)
         {
             // Cabecera
             var _symmetricSecurityKey = new SymmetricSecurityKey(
@@ -71,7 +84,6 @@ namespace APIAlumnos.Controllers
 
             // Claims
             var _Claims = new[] {
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim("nombre", usuarioInfo.Nombre),
                 new Claim("apellidos", usuarioInfo.Apellidos),
                 new Claim(JwtRegisteredClaimNames.Email, usuarioInfo.Email),
@@ -91,8 +103,9 @@ namespace APIAlumnos.Controllers
                     _Header,
                     _Payload
                 );
+            usuarioInfo.Token = new JwtSecurityTokenHandler().WriteToken(_Token);
 
-            return new JwtSecurityTokenHandler().WriteToken(_Token);
+            return usuarioInfo;
         }
     }
 }

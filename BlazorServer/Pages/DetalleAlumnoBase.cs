@@ -12,6 +12,8 @@ namespace BlazorServer.Pages
     {
         [Inject]
         public IServicioAlumnos ServicioAlumnos { get; set; }
+        [Inject]
+        public IServicioLogin ServicioLogin { get; set; }
         [Parameter]
         public string Id { get; set; }
         public Alumno alumno { get; set; } = new Alumno();
@@ -19,10 +21,16 @@ namespace BlazorServer.Pages
         public Boolean mostrarError = false;
         public String textoError = String.Empty;
 
+        Login l = new Login();
+        Usuario u = new Usuario();
         protected override async Task OnInitializedAsync()
         {
             try
             {
+                l.Usuario = Environment.GetEnvironmentVariable("UsuarioAPI");
+                l.Password = Environment.GetEnvironmentVariable("UsuarioAPI");
+                u = (await ServicioLogin.SolicitudLogin(l));
+                Environment.SetEnvironmentVariable("Token", u.Token);
                 alumno = (await ServicioAlumnos.DameAlumno(Convert.ToInt32(Id)));
             }
             catch (Exception ex)

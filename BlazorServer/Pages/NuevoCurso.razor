@@ -3,6 +3,7 @@
 @using ModeloClasesAlumnos;
 @inject IServicioCursos ServicioCurso
 @inject NavigationManager navigationManager
+@inject IServicioLogin SevicioLogin
 
 <h3>Nuevo Curso</h3>
 <hr />
@@ -86,11 +87,34 @@
 
     Boolean mostrarError = false;
     String textoError = String.Empty;
+    Login l = new Login();
+    Usuario u = new Usuario();
 
     public void HandleValidSubmit()
     {
         Console.WriteLine("OnValidSubmit");
     }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            l.Usuario = Environment.GetEnvironmentVariable("UsuarioAPI");
+            l.Password = Environment.GetEnvironmentVariable("UsuarioAPI");
+            u = (await SevicioLogin.SolicitudLogin(l));
+            Environment.SetEnvironmentVariable("Token", u.Token);
+        }
+        catch (Exception ex)
+        {
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
+        }
+    }
+
+
+
 
     protected async Task Guardar()
     {

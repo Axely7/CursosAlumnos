@@ -112,7 +112,7 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 87 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\CursosAlumno.razor"
+#line 88 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\CursosAlumno.razor"
        
     [Parameter]
     public int id { get; set; }
@@ -121,8 +121,17 @@ using ModeloClasesAlumnos;
     Boolean mostrarError = false;
     String textoError = String.Empty;
 
+    Login l = new Login();
+    Usuario u = new Usuario();
+
     protected override async Task OnInitializedAsync()
     {
+
+        l.Usuario = Environment.GetEnvironmentVariable("UsuarioAPI");
+        l.Password = Environment.GetEnvironmentVariable("UsuarioAPI");
+        u = (await ServicioLogin.SolicitudLogin(l));
+        Environment.SetEnvironmentVariable("Token", u.Token);
+
 
         try
         {
@@ -152,6 +161,7 @@ using ModeloClasesAlumnos;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioLogin ServicioLogin { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioAlumnos ServicioAlumnos { get; set; }
     }

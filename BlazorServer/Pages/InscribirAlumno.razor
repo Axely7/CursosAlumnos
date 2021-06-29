@@ -4,7 +4,7 @@
 @inject IServicioAlumnos ServicioAlumnos
 @inject IServicioCursos ServicioCursos
 @inject NavigationManager navigationManager
-
+@inject IServicioLogin SevicioLogin
 
 <h1>Inscribir Alumno</h1>
 
@@ -90,10 +90,17 @@ else
     Boolean mostrarError = false;
     String textoError = String.Empty;
 
+    Login l = new Login();
+    Usuario u = new Usuario();
+
     protected override async Task OnInitializedAsync()
     {
         try
         {
+            l.Usuario = Environment.GetEnvironmentVariable("UsuarioAPI");
+            l.Password = Environment.GetEnvironmentVariable("UsuarioAPI");
+            u = (await SevicioLogin.SolicitudLogin(l));
+            Environment.SetEnvironmentVariable("Token", u.Token);
 
             listaCursos = (await ServicioCursos.DameCursos(id)).ToList();
             alumno = (await ServicioAlumnos.DameAlumno(id));

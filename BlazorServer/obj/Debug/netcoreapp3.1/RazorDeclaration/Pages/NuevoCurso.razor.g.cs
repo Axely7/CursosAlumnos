@@ -112,18 +112,41 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 83 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\NuevoCurso.razor"
+#line 84 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\NuevoCurso.razor"
        
     Curso curso = new Curso();
     Precio precio = new Precio();
 
     Boolean mostrarError = false;
     String textoError = String.Empty;
+    Login l = new Login();
+    Usuario u = new Usuario();
 
     public void HandleValidSubmit()
     {
         Console.WriteLine("OnValidSubmit");
     }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        try
+        {
+            l.Usuario = Environment.GetEnvironmentVariable("UsuarioAPI");
+            l.Password = Environment.GetEnvironmentVariable("UsuarioAPI");
+            u = (await SevicioLogin.SolicitudLogin(l));
+            Environment.SetEnvironmentVariable("Token", u.Token);
+        }
+        catch (Exception ex)
+        {
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
+        }
+    }
+
+
+
 
     protected async Task Guardar()
     {
@@ -175,6 +198,7 @@ using ModeloClasesAlumnos;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioLogin SevicioLogin { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioCursos ServicioCurso { get; set; }
     }

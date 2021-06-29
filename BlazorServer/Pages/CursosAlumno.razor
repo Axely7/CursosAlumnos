@@ -3,6 +3,7 @@
 @using ModeloClasesAlumnos;
 @inject IServicioAlumnos ServicioAlumnos
 @inject NavigationManager navigationManager
+@inject IServicioLogin ServicioLogin
 
 <h1>Listado cursos</h1>
 <div class="form-group row">
@@ -92,8 +93,17 @@ else
     Boolean mostrarError = false;
     String textoError = String.Empty;
 
+    Login l = new Login();
+    Usuario u = new Usuario();
+
     protected override async Task OnInitializedAsync()
     {
+
+        l.Usuario = Environment.GetEnvironmentVariable("UsuarioAPI");
+        l.Password = Environment.GetEnvironmentVariable("UsuarioAPI");
+        u = (await ServicioLogin.SolicitudLogin(l));
+        Environment.SetEnvironmentVariable("Token", u.Token);
+
 
         try
         {

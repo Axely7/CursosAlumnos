@@ -3,6 +3,7 @@
 @using ModeloClasesAlumnos;
 @inject IServicioAlumnos ServicioAlumnos
 @inject NavigationManager navigationManager
+@inject IServicioLogin SevicioLogin
 
 <h3>Modificar Alumno</h3>
 <hr />
@@ -99,10 +100,17 @@
     Boolean mostrarError = false;
     String textoError = String.Empty;
 
+    Login l = new Login();
+    Usuario u = new Usuario();
+
     protected override async Task OnInitializedAsync()
     {
         try
         {
+            l.Usuario = Environment.GetEnvironmentVariable("UsuarioAPI");
+            l.Password = Environment.GetEnvironmentVariable("UsuarioAPI");
+            u = (await SevicioLogin.SolicitudLogin(l));
+            Environment.SetEnvironmentVariable("Token", u.Token);
 
             if (id > 0)
             {

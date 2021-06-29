@@ -3,6 +3,8 @@
 @using ModeloClasesAlumnos;
 @inject IServicioCursos ServicioCurso
 @inject NavigationManager navigationmanager
+@inject IServicioLogin SevicioLogin
+
 
 <h3>Lista Cursos</h3>
 
@@ -115,11 +117,18 @@ else
     Boolean mostrarError = false;
     String textoError = String.Empty;
 
+    Login l = new Login();
+    Usuario u = new Usuario();
+
     //Recordar que pasando -1 nos devolvia todos los cursos sin filtrar por alumno
     protected override async Task OnInitializedAsync()
     {
         try
         {
+            l.Usuario = Environment.GetEnvironmentVariable("UsuarioAPI");
+            l.Password = Environment.GetEnvironmentVariable("UsuarioAPI");
+            u = (await SevicioLogin.SolicitudLogin(l));
+            Environment.SetEnvironmentVariable("Token", u.Token);
 
             mostrarError = false;
             listaCursos = (await ServicioCurso.DameCursos(-1)).ToList();
