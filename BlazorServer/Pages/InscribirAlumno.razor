@@ -95,7 +95,7 @@ else
         try
         {
 
-            listaCursos = (await ServicioCurso.DameCursos(id)).ToList();
+            listaCursos = (await ServicioCursos.DameCursos(id)).ToList();
             alumno = (await ServicioAlumnos.DameAlumno(id));
         }
         catch (Exception ex)

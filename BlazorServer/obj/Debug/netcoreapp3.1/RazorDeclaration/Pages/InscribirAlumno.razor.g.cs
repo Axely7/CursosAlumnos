@@ -112,7 +112,7 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 59 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\InscribirAlumno.razor"
+#line 83 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\InscribirAlumno.razor"
        
 
     [Parameter]
@@ -120,11 +120,23 @@ using ModeloClasesAlumnos;
 
     public List<Curso> listaCursos { get; set; } = new List<Curso>();
     Alumno alumno = new Alumno();
+    Boolean mostrarError = false;
+    String textoError = String.Empty;
 
     protected override async Task OnInitializedAsync()
     {
-        listaCursos = (await ServicioCursos.DameCursos(id)).ToList();
-        alumno = (await ServicioAlumnos.DameAlumno(id));
+        try
+        {
+
+            listaCursos = (await ServicioCursos.DameCursos(id)).ToList();
+            alumno = (await ServicioAlumnos.DameAlumno(id));
+        }
+        catch (Exception ex)
+        {
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
+        }
     }
 
     protected async Task Inscribir(int idCurso, int idprecio)
@@ -134,10 +146,24 @@ using ModeloClasesAlumnos;
             alumno = (await ServicioAlumnos.CursosInscribirAlumno(alumno, idCurso, idprecio));
             navigationManager.NavigateTo("/ListaCursosAlumno/" + id);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
         }
+    }
+
+    protected void CerrarError()
+    {
+        mostrarError = false;
+
+    }
+
+    protected void MostrarError()
+    {
+
+        mostrarError = true;
     }
 
 

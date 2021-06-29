@@ -112,19 +112,33 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 66 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarAlumno.razor"
+#line 93 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarAlumno.razor"
       
     [Parameter]
     public int id { get; set; }
     Alumno alumno = new Alumno();
     IFileListEntry fichero;
 
+    Boolean mostrarError = false;
+    String textoError = String.Empty;
+
     protected override async Task OnInitializedAsync()
     {
-        if(id > 0)
+        try
         {
-            alumno = await ServicioAlumnos.DameAlumno(id);
+
+            if (id > 0)
+            {
+                alumno = await ServicioAlumnos.DameAlumno(id);
+            }
         }
+        catch (Exception ex)
+        {
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
+        }
+
     }
 
     public void HandleValidSubmit()
@@ -144,9 +158,9 @@ using ModeloClasesAlumnos;
     {
         try
         {
-            if(alumno.Nombre != null && alumno.Email != null)
+            if (alumno.Nombre != null && alumno.Email != null)
             {
-                if(fichero != null && fichero.Data != null)
+                if (fichero != null && fichero.Data != null)
                 {
                     var ms = new MemoryStream();
                     await fichero.Data.CopyToAsync(ms);
@@ -160,9 +174,11 @@ using ModeloClasesAlumnos;
                 navigationManager.NavigateTo("/listaAlumnos");
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
         }
 
     }
@@ -179,6 +195,17 @@ using ModeloClasesAlumnos;
             estaDeBaja = true;
 
         return estaDeBaja;
+    }
+
+    protected void CerrarError()
+    {
+        mostrarError = false;
+    }
+
+    protected void MostrarError()
+    {
+
+        mostrarError = true;
     }
 
 

@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 using ModeloClasesAlumnos;
 using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace APIAlumnos.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AlumnosController:ControllerBase
     {
         private readonly IRepositorioAlumnos alumnosRepositorio;

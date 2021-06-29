@@ -112,7 +112,7 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 113 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarCurso.razor"
+#line 135 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ModificarCurso.razor"
        
     [Parameter]
     public int idCurso { get; set; }
@@ -124,6 +124,9 @@ using ModeloClasesAlumnos;
     Precio nuevoPrecio = new Precio();
     Boolean mostrarPrecio = false;
 
+    Boolean mostrarError = false;
+    String textoError = String.Empty;
+
     public void HandleValidSubmit()
     {
         Console.WriteLine("OnValidSubmit");
@@ -131,14 +134,23 @@ using ModeloClasesAlumnos;
 
     protected override async Task OnInitializedAsync()
     {
-        if (idCurso > 0)
+        try
         {
-            curso = await ServicioCurso.DameCurso(idCurso, idPrecio);
-            precio = curso.ListaPrecios[0];
+            if (idCurso > 0)
+            {
+                curso = await ServicioCurso.DameCurso(idCurso, idPrecio);
+                precio = curso.ListaPrecios[0];
 
-            nuevoPrecio.Coste = 19.99;
-            nuevoPrecio.FechaInicio = DateTime.Now;
-            nuevoPrecio.FechaFin = DateTime.Now.AddDays(30);
+                nuevoPrecio.Coste = 19.99;
+                nuevoPrecio.FechaInicio = DateTime.Now;
+                nuevoPrecio.FechaFin = DateTime.Now.AddDays(30);
+            }
+        }
+        catch (Exception ex)
+        {
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
         }
     }
 
@@ -146,7 +158,7 @@ using ModeloClasesAlumnos;
     {
         try
         {
-            if(curso.NombreCurso != String.Empty &&
+            if (curso.NombreCurso != String.Empty &&
                 precio.Coste >= 0 && precio.FechaFin != null &&
                 precio.FechaInicio != null)
             {
@@ -155,9 +167,11 @@ using ModeloClasesAlumnos;
                 navigationManager.NavigateTo("/listaCursos");
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
         }
     }
 
@@ -176,16 +190,39 @@ using ModeloClasesAlumnos;
 
     protected async void GuardarPrecio()
     {
-        if(curso.NombreCurso != String.Empty &&
-            nuevoPrecio.Coste >= 0 && nuevoPrecio.FechaFin != null &&
-            nuevoPrecio.FechaInicio != null)
+        try
         {
-            curso.ListaPrecios[0] = precio;
-            curso.ListaPrecios.Add(nuevoPrecio);
 
-            curso = await ServicioCurso.ModificarCurso(idCurso, curso);
-            navigationManager.NavigateTo("/listaCursos");
+            if (nuevoPrecio.Coste >= 0 && nuevoPrecio.FechaFin != null &&
+               nuevoPrecio.FechaInicio != null)
+            {
+
+                curso.ListaPrecios[0] = precio;
+                curso.ListaPrecios.Add(nuevoPrecio);
+
+                curso = await ServicioCurso.ModificarCurso(idCurso, curso);
+
+                navigationManager.NavigateTo("/listaCursos");
+            }
         }
+        catch (Exception ex)
+        {
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
+        }
+    }
+
+    protected void CerrarError()
+    {
+        mostrarError = false;
+
+    }
+
+    protected void MostrarError()
+    {
+
+        mostrarError = true;
     }
 
 

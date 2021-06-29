@@ -8,11 +8,13 @@ using APIAlumnos.Repositorio;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace APIAlumnos.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CursosController:ControllerBase
     {
         

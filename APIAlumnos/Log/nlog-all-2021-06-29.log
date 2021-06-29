@@ -1,0 +1,37 @@
+2021-06-29 10:27:08.0781|ERROR|APIAlumnos.Controllers.CursosController|Se produjo un error en el controlador de cursos en el método BorrarCurso:System.Data.SqlClient.SqlException (0x80131904): Un curso con alumnos apuntados no puede borrarse
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader()
+   at System.Data.SqlClient.SqlCommand.InternalEndExecuteReader(IAsyncResult asyncResult, String endMethod)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReaderInternal(IAsyncResult asyncResult)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReader(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location where exception was thrown ---
+   at APIAlumnos.Repositorio.RepositorioCursos.BorrarCurso(Int32 id) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Repositorio\RepositorioCursos.cs:line 324
+   at APIAlumnos.Controllers.CursosController.BorrarCurso(Int32 id) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Controllers\CursosController.cs:line 72
+ClientConnectionId:5738b18b-bcc6-4205-a1f5-e088dddc1d08
+Error Number:50000,State:1,Class:16
+2021-06-29 10:29:20.8858|ERROR|APIAlumnos.Controllers.CursosController|Se produjo un error en el controlador de cursos en el método BorrarCurso:System.Data.SqlClient.SqlException (0x80131904): Un curso con alumnos apuntados no puede borrarse
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader()
+   at System.Data.SqlClient.SqlCommand.InternalEndExecuteReader(IAsyncResult asyncResult, String endMethod)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReaderInternal(IAsyncResult asyncResult)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReader(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location where exception was thrown ---
+   at APIAlumnos.Repositorio.RepositorioCursos.BorrarCurso(Int32 id) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Repositorio\RepositorioCursos.cs:line 324
+   at APIAlumnos.Controllers.CursosController.BorrarCurso(Int32 id) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Controllers\CursosController.cs:line 72
+ClientConnectionId:b2fec32b-fbc4-4343-abc7-07c7b91f21b5
+Error Number:50000,State:1,Class:16
+2021-06-29 12:07:51.7363|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.

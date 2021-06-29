@@ -112,10 +112,13 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 58 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\NuevoCurso.razor"
+#line 83 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\NuevoCurso.razor"
        
     Curso curso = new Curso();
     Precio precio = new Precio();
+
+    Boolean mostrarError = false;
+    String textoError = String.Empty;
 
     public void HandleValidSubmit()
     {
@@ -126,8 +129,8 @@ using ModeloClasesAlumnos;
     {
         try
         {
-            if(curso.NombreCurso!=String.Empty &&
-                precio.Coste>=0 && precio.FechaFin!=null &&
+            if (curso.NombreCurso != String.Empty &&
+                precio.Coste >= 0 && precio.FechaFin != null &&
                 precio.FechaInicio != null)
             {
                 curso.ListaPrecios = new List<Precio>();
@@ -136,9 +139,11 @@ using ModeloClasesAlumnos;
                 navigationManager.NavigateTo("/ListaCursos");
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
         }
 
     }
@@ -155,6 +160,16 @@ using ModeloClasesAlumnos;
         precio.FechaInicio = DateTime.Now;
         precio.FechaFin = DateTime.Now.AddDays(30);
 
+    }
+
+    protected void CerrarError()
+    {
+        mostrarError = false;
+    }
+
+    protected void MostrarError()
+    {
+        mostrarError = true;
     }
 
 #line default

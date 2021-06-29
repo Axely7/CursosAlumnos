@@ -112,16 +112,31 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 87 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ListaCursos.razor"
+#line 110 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\ListaCursos.razor"
        
     public List<Curso> listaCursos { get; set; } = new List<Curso>();
     public Boolean MostrarPopUP = false;
     public int idCursoBorrar = -1;
 
+    Boolean mostrarError = false;
+    String textoError = String.Empty;
+
     //Recordar que pasando -1 nos devolvia todos los cursos sin filtrar por alumno
     protected override async Task OnInitializedAsync()
     {
-        listaCursos = (await ServicioCurso.DameCursos(-1)).ToList();
+        try
+        {
+
+            mostrarError = false;
+            listaCursos = (await ServicioCurso.DameCursos(-1)).ToList();
+        }
+        catch (Exception ex)
+        {
+            MostrarError();
+            textoError = ex.Message;
+            StateHasChanged();
+
+        }
     }
 
     protected void Borrar(int curso)
@@ -143,11 +158,25 @@ using ModeloClasesAlumnos;
             CerrarPop();
             navigationmanager.NavigateTo("listaCursos", true);
         }
-        catch(Exception ex)
-            {
-            throw new Exception(ex.Message);
-            }
+        catch (Exception ex)
+        {
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
         }
+    }
+
+    protected void CerrarError()
+    {
+        mostrarError = false;
+        CerrarPop();
+    }
+
+    protected void MostrarError()
+    {
+        CerrarPop();
+        mostrarError = true;
+    }
 
 #line default
 #line hidden

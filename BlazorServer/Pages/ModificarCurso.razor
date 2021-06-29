@@ -162,7 +162,7 @@
 
                 nuevoPrecio.Coste = 19.99;
                 nuevoPrecio.FechaInicio = DateTime.Now;
-                nuevoPrecio.fechaFin = DateTime.Now.AddDays(30);
+                nuevoPrecio.FechaFin = DateTime.Now.AddDays(30);
             }
         }
         catch (Exception ex)
@@ -212,7 +212,7 @@
         try
         {
 
-            if (nuevoPrecio.Coste >= 0 && nuevoPrecio.fechaFin != null &&
+            if (nuevoPrecio.Coste >= 0 && nuevoPrecio.FechaFin != null &&
                nuevoPrecio.FechaInicio != null)
             {
 

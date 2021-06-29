@@ -9,12 +9,12 @@
             </div>
 
             <div class="card-body text-center">
-                <img class="card-img-top" src="@alumno.Foto"/>
+                <img class="card-img-top" src="@alumno.Foto" />
 
                 <h4>Alumno id: @alumno.Id</h4>
                 <h4>Email : @alumno.Email</h4>
                 <h4>Fecha de alta: @alumno.FechaAlta</h4>
-                @if(alumno.FechaBaja == null)
+                @if (alumno.FechaBaja == null)
                 {
                     <h4 class="alert-success">Fecha de baja: De alta</h4>
                 }
@@ -32,3 +32,26 @@
     </div>
 </div>
 
+@if (mostrarError)
+{
+    <div class="modal bg-secondary" tabindex="-1" style="display:block;" role="dialog">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content ">
+                <div class="modal-header justify-content-center bg-info">
+                    <div>
+                        <strong>Se produjo un error al realizar la operación.</strong>
+                    </div>
+                    <button type="button" class="close"
+                            @onclick="CerrarError">
+                        <i class="large material-icons">cancel</i>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Ooops!</h4>
+                    <p>@textoError</p>
+                    <button class="btn btn-success" @onclick="CerrarError" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

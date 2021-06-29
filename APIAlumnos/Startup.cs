@@ -12,6 +12,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using APIAlumnos.Repositorio;
 using APIAlumnos.Datos;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
 
 namespace APIAlumnos
 {
@@ -23,6 +26,7 @@ namespace APIAlumnos
         }
 
         public IConfiguration Configuration { get; }
+       
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -33,7 +37,26 @@ namespace APIAlumnos
 
             var cadenaConexionSqlConfiguracion = new AccesoDatos(Configuration.GetConnectionString("SQL"));
             services.AddSingleton(cadenaConexionSqlConfiguracion);
+
+            // JWT
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["JWT:Issuer"],
+                    ValidAudience = Configuration["JWT:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(Configuration["JWT:ClaveSecreta"])
+                        )
+                };
+            });
+            services.AddMvc(option => option.EnableEndpointRouting = false);
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -53,6 +76,9 @@ namespace APIAlumnos
             {
                 endpoints.MapControllers();
             });
+
+            app.UseAuthentication();
+            app.UseMvc();
         }
     }
 }

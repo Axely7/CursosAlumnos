@@ -112,18 +112,41 @@ using ModeloClasesAlumnos;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 60 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\CursosAlumno.razor"
+#line 87 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\CursosAlumno.razor"
        
     [Parameter]
     public int id { get; set; }
     private Alumno alumno;
 
+    Boolean mostrarError = false;
+    String textoError = String.Empty;
+
     protected override async Task OnInitializedAsync()
     {
-        if (id > 0)
+
+        try
         {
-            alumno = await ServicioAlumnos.CursosInscritosAlumno(id);
+            if (id > 0)
+            {
+                alumno = await ServicioAlumnos.CursosInscritosAlumno(id);
+            }
         }
+        catch (Exception ex)
+        {
+            textoError = ex.Message;
+            MostrarError();
+            StateHasChanged();
+        }
+    }
+
+    protected void CerrarError()
+    {
+        mostrarError = false;
+    }
+
+    protected void MostrarError()
+    {
+        mostrarError = true;
     }
 
 #line default

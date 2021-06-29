@@ -1,3 +1,4 @@
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\nlog.config
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\APIAlumnos.StaticWebAssets.xml
@@ -8,7 +9,17 @@ C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\APIAlumnos.dll
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\APIAlumnos.pdb
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\BlazorInputFile.dll
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\NLog.dll
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
@@ -29,6 +40,3 @@ C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\obj
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\obj\Debug\netcoreapp3.1\APIAlumnos.dll
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\obj\Debug\netcoreapp3.1\APIAlumnos.pdb
 C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\obj\Debug\netcoreapp3.1\APIAlumnos.genruntimeconfig.cache
-C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\nlog.config
-C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\NLog.dll
-C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
