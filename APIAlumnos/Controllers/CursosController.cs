@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using APIAlumnos.Repositorio;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using System.Data.SqlClient;
 
 namespace APIAlumnos.Controllers
 {
@@ -26,6 +27,7 @@ namespace APIAlumnos.Controllers
         [HttpPost]
         public async Task<ActionResult<Curso>> AltaCurso(Curso curso)
         {
+            Curso nuevoCurso = new Curso();
             try
             {
                 if (curso == null || curso.ListaPrecios == null)
@@ -37,16 +39,24 @@ namespace APIAlumnos.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var nuevoCurso = await cursosRepositorio.AltaCurso(curso);
-
-                return nuevoCurso;
+                nuevoCurso = await cursosRepositorio.AltaCurso(curso);
+            }
+            catch(SqlException ex)
+            {
+                nuevoCurso.error = new Error();
+                log.LogError("Se produjo un error en el controlador de cursos en el método AltaCurso: " + ex.ToString());
+                nuevoCurso.error.mensaje = "Error creando curso " + ex.Message;
+                nuevoCurso.error.mostrarUsuario = true;
             }
             catch (Exception ex)
             {
+                nuevoCurso.error = new Error();
                 log.LogError("Se produjo un error en el controlador de cursos en el método AltaCurso:" + ex.ToString());
-
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error dando de alta nuevo curso");
+                nuevoCurso.error.mensaje = ex.ToString();
+                nuevoCurso.error.mostrarUsuario = false;
+                
             }
+            return nuevoCurso;
         }
 
         [HttpDelete("{id:int}")]
@@ -61,7 +71,13 @@ namespace APIAlumnos.Controllers
                 }
                 return await cursosRepositorio.BorrarCurso(id);
             }
-            catch(Exception ex)
+            catch (SqlException ex)
+            {
+                log.LogError("Se produjo un error en el controlador de cursos en el método BorrarCurso:" + ex.ToString());
+                return StatusCode(StatusCodes.Status303SeeOther, ex.Message);
+
+            }
+            catch (Exception ex)
             {
                 log.LogError("Se produjo un error en el controlador de cursos en el método BorrarCurso: "+ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error borrando curso");
@@ -71,19 +87,35 @@ namespace APIAlumnos.Controllers
         [HttpGet("{id:int}/{idprecio:int}")]
         public async Task<ActionResult<Curso>> DameCurso(int id, int idprecio)
         {
+            Curso resultado = new Curso();
             try
             {
-                var resultado = await cursosRepositorio.DameCurso(id, idprecio);
+                resultado = await cursosRepositorio.DameCurso(id, idprecio);
                 if (resultado == null)
                     return NotFound();
 
                 return resultado;
             }
+            catch (SqlException ex)
+            {
+                resultado.error = new Error();
+                log.LogError("Se produjo un error en el controlador de cursos en el método DameCurso:" + ex.ToString());
+                resultado.error.mensaje = "Error obteniendo el curso " + ex.Message;
+                resultado.error.mostrarUsuario = true;
+            }
             catch (Exception ex)
             {
+                resultado.error = new Error();
                 log.LogError("Se produjo un error en el controlador de cursos en el método DameCurso: " + ex.ToString());
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniendo los datos");
+                resultado.error.mensaje = ex.ToString();
+                resultado.error.mostrarUsuario = false;
             }
+
+
+
+
+
+            return resultado;
         }
 
 
@@ -107,36 +139,63 @@ namespace APIAlumnos.Controllers
         }
 
         [HttpGet("{DameCurso}")]
-        public async Task<ActionResult> DameCurso(string nombreCurso)
+        public async Task<ActionResult<Curso>> DameCurso(string nombreCurso)
         {
+            Curso resultado = new Curso();
             try
             {
-                return Ok(await cursosRepositorio.DameCurso(nombreCurso));
+               resultado =  (await cursosRepositorio.DameCurso(nombreCurso));
+            }
+            catch (SqlException ex)
+            {
+                resultado.error = new Error();
+                log.LogError("Se produjo un error en el controlador de cursos en el método DameCurso:" + ex.ToString());
+                resultado.error.mensaje = "Error obteniendo el curso " + ex.Message;
+                resultado.error.mostrarUsuario = true;
             }
             catch (Exception ex)
             {
+                resultado.error = new Error();
                 log.LogError("Se produjo un error en el controlador de cursos en el método DameCurso: " + ex.ToString());
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniedo los datos");
+                resultado.error.mensaje = ex.ToString();
+                resultado.error.mostrarUsuario = false;
             }
+            return resultado;
         }
 
         [Route("~/api/AlumnosCursos/{idAlumno}")]
-        public async Task<ActionResult> DameCursos(int idAlumno)
+        public async Task<ActionResult<List<Curso>>> DameCursos(int idAlumno)
         {
+            List<Curso> resultado = new List<Curso>();
+            Curso Aux = new Curso();
+
             try
             {
-                return Ok(await cursosRepositorio.DameCursos(idAlumno));
+                resultado = (List<Curso>)await cursosRepositorio.DameCursos(idAlumno);
+            }
+            catch (SqlException ex)
+            {
+                Aux.error = new Error();
+                log.LogError("Se produjo un error en el controlador de cursos en el método DameCursos:" + ex.ToString());
+                Aux.error.mensaje = "Error obteniendo lista de cursos " + ex.Message;
+                Aux.error.mostrarUsuario = true;
+                resultado.Add(Aux);
             }
             catch (Exception ex)
             {
+                Aux.error = new Error();
                 log.LogError("Se produjo un error en el controlador de cursos en el método DameCursos: " + ex.ToString());
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniendo los datos");
+                Aux.error.mensaje = ex.ToString();
+                Aux.error.mostrarUsuario = false;
+                resultado.Add(Aux);
             }
+            return resultado;
         }
 
         [HttpPut("{id:int}")]
         public async Task<ActionResult<Curso>> ModificarCurso(int id, Curso curso)
         {
+            Curso resultado = new Curso();
             try
             {
                 if (id != curso.Id)
@@ -145,13 +204,23 @@ namespace APIAlumnos.Controllers
 
                 if (cursoModificar == null)
                     return NotFound($"Curso con = {id} no encontrado");
-                return await cursosRepositorio.ModificarCursos(curso);
+                resultado = await cursosRepositorio.ModificarCursos(curso);
+            }
+            catch (SqlException ex)
+            {
+                resultado.error = new Error();
+                log.LogError("Se produjo un error en el controlador de cursos en el método ModificarCurso:" + ex.ToString());
+                resultado.error.mensaje = "Error modificando el curso " + ex.Message;
+                resultado.error.mostrarUsuario = true;
             }
             catch (Exception ex)
             {
+                resultado.error = new Error();
                 log.LogError("Se produjo un error en el controlador de cursos en el método ModificarCurso: " + ex.ToString());
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error actualizando datos");
+                resultado.error.mensaje = ex.ToString();
+                resultado.error.mostrarUsuario = false;
             }
+            return resultado;
 
         }
     }

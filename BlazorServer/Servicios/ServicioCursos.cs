@@ -22,22 +22,86 @@ namespace BlazorServer.Servicios
 
         public async Task<IEnumerable<Curso>> DameCursos(int idalumno)
         {
-            return await httpClient.GetJsonAsync<Curso[]>("API/AlumnosCursos/" + idalumno.ToString());
+            List<Curso> c = await httpClient.GetJsonAsync<List<Curso>>("API/AlumnosCursos/" + idalumno.ToString());
+            if (c != null && c[0].error != null && c[0].error.mensaje != String.Empty)
+            {
+                if (c[0].error.mostrarUsuario)
+                {
+                    log.LogError("Error obteniendo cursos del alumno: " + c[0].error.mensaje);
+                    throw new Exception(c[0].error.mensaje);
+                }
+                else
+                {
+                    log.LogError("Error obteniendo cursos del alumno: " + c[0].error.mensaje);
+                    throw new Exception("Error obteniendo curso del alumno");
+                }
+
+            }
+
+            return c;
         }
 
         public async Task<Curso> AltaCurso(Curso curso)
         {
-            return await httpClient.PostJsonAsync<Curso>("API/Cursos/", curso);
+            Curso c = await httpClient.PostJsonAsync<Curso>("API/Cursos/", curso);
+            if (c.error != null && c.error.mensaje != String.Empty)
+            {
+                if (c.error.mostrarUsuario)
+                {
+                    log.LogError("Error dando de alta nuestro curso: " + c.error.mensaje);
+                    throw new Exception(c.error.mensaje);
+                }
+                else
+                {
+                    log.LogError("Error dando de alta nuestro curso: " + c.error.mensaje);
+                    throw new Exception("Error dando de alta nuestro curso");
+                }
+
+            }
+
+            return c;
         }
 
         public async Task<Curso> DameCurso(int IdCurso, int idPrecio)
         {
-            return await httpClient.GetJsonAsync<Curso>("API/Cursos/" + IdCurso.ToString() + "/" + idPrecio.ToString());
+            Curso c = await httpClient.GetJsonAsync<Curso>("API/Cursos/" + IdCurso.ToString() + "/" + idPrecio.ToString());
+            if (c.error != null && c.error.mensaje != String.Empty)
+            {
+                if (c.error.mostrarUsuario)
+                {
+                    log.LogError("Error buscando nuestro curso: " + c.error.mensaje);
+                    throw new Exception(c.error.mensaje);
+                }
+                else
+                {
+                    log.LogError("Error buscando nuestro curso: " + c.error.mensaje);
+                    throw new Exception("Error buscando nuestro curso");
+                }
+
+            }
+
+            return c;
         }
 
         public async Task<Curso> ModificarCurso(int id, Curso curso)
         {
-            return await httpClient.PutJsonAsync<Curso>("API/Cursos/" + id.ToString(), curso);
+            Curso c = await httpClient.PutJsonAsync<Curso>("API/Cursos/" + id.ToString(), curso);
+            if (c.error != null && c.error.mensaje != String.Empty)
+            {
+                if (c.error.mostrarUsuario)
+                {
+                    log.LogError("Error modificando nuestro curso: " + c.error.mensaje);
+                    throw new Exception(c.error.mensaje);
+                }
+                else
+                {
+                    log.LogError("Error modificando nuestro curso: " + c.error.mensaje);
+                    throw new Exception("Error modificando nuestro curso");
+                }
+
+            }
+
+            return c;
         }
 
         public async Task BorrarCurso(int id)

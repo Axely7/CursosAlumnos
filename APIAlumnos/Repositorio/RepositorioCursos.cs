@@ -56,10 +56,7 @@ namespace APIAlumnos.Repositorio
                     cursoCreado = await DameCurso(idCursoCreado);
                 }
             }
-            catch(SqlException ex)
-            {
-                throw new Exception("Error creando curso " + ex.Message);
-            }
+           
             finally
             {
                 Comm.Dispose();
@@ -112,10 +109,7 @@ namespace APIAlumnos.Repositorio
                     listaCursos.Add(curso);
 
             }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error cargando los datos de nuestro curso " + ex.Message);
-            }
+       
             finally
             {
                 if (reader != null)
@@ -164,10 +158,7 @@ namespace APIAlumnos.Repositorio
                 }
 
             }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error cargando los datos de curso " + ex.Message);
-            }
+     
             finally
             {
                 if (reader != null)
@@ -216,10 +207,7 @@ namespace APIAlumnos.Repositorio
                 }
 
             }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error cargando los datos de curso " + ex.Message);
-            }
+         
             finally
             {
                 if (reader != null)
@@ -266,10 +254,7 @@ namespace APIAlumnos.Repositorio
                 }
 
             }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error cargando los datos de curso " + ex.Message);
-            }
+       
             finally
             {
                 if (reader != null)
@@ -310,10 +295,7 @@ namespace APIAlumnos.Repositorio
                 }
                 cursoModificado = await DameCurso(curso.Id);
             }
-            catch(SqlException ex)
-            {
-                throw new Exception("Error modificando curso" + ex.Message);
-            }
+         
             finally
             {
                 if (reader != null)

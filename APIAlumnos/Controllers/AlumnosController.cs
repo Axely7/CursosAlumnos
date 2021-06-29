@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ModeloClasesAlumnos;
 using Microsoft.Extensions.Logging;
+using System.Data.SqlClient;
 
 namespace APIAlumnos.Controllers
 {
@@ -23,41 +24,65 @@ namespace APIAlumnos.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> DameAlumnos()
+        public async Task<ActionResult<List<Alumno>>> DameAlumnos()
         {
+            List<Alumno> resultado = new List<Alumno>();
+            Alumno Aux = new Alumno();
             try
             {
-                return Ok(await alumnosRepositorio.DameAlumnos());
+                resultado = (List<Alumno>)await alumnosRepositorio.DameAlumnos();
+            }
+            catch (SqlException ex)
+            {
+                Aux.error = new Error();
+                log.LogError("Se produjo un error en el controlador de alumnos en el método DameAlumnos:" + ex.ToString());
+                Aux.error.mensaje = "Error obteniendo lista de alumnos " + ex.Message;
+                Aux.error.mostrarUsuario = true;
+                resultado.Add(Aux);
             }
             catch (Exception ex)
             {
+                Aux.error = new Error();
                 log.LogError("Se produjo un error en el controlador de alumnos en el método DameAlumnos:" + ex.ToString());
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniendo los datos");
+                Aux.error.mensaje = ex.ToString();
+                Aux.error.mostrarUsuario = false;
+                resultado.Add(Aux);
             }
+            return resultado;
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Alumno>> DameAlumno(int id)
         {
+            Alumno resultado = new Alumno();
             try
             {
-                var resultado = await alumnosRepositorio.DameAlumno(id);
+                resultado = await alumnosRepositorio.DameAlumno(id);
                 if (resultado == null)
                     return NotFound();
-                return resultado;
-                
+            }
+            catch (SqlException ex)
+            {
+                resultado.error = new Error();
+                log.LogError("Se produjo un error en el controlador de alumnos en el método DameAlumno:" + ex.ToString());
+                resultado.error.mensaje = "Error obteniendo el alumno " + ex.Message;
+                resultado.error.mostrarUsuario = true;
             }
             catch (Exception ex)
             {
+                resultado.error = new Error();
                 log.LogError("Se produjo un error en el controlador de alumnos en el método DameAlumnos:" + ex.ToString());
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniendo los datos");
+                resultado.error.mensaje = ex.ToString();
+                resultado.error.mostrarUsuario = false;
             }
+            return resultado;
         }
 
         [HttpPost]
 
         public async Task<ActionResult<Alumno>> CrearAlumno(Alumno alumno)
         {
+            Alumno resultado = new Alumno();
             try
             {
                 if (alumno == null)
@@ -71,19 +96,30 @@ namespace APIAlumnos.Controllers
                 }
 
 
-                var nuevoAlumno = await alumnosRepositorio.AltaAlumno(alumno);
-                return nuevoAlumno;
+                resultado = await alumnosRepositorio.AltaAlumno(alumno);
+               
+            }
+            catch (SqlException ex)
+            {
+                resultado.error = new Error();
+                log.LogError("Se produjo un error en el controlador de alumnos en el método CrearAlumno:" + ex.ToString());
+                resultado.error.mensaje = "Error dando de alta nuevo alumno" + ex.Message;
+                resultado.error.mostrarUsuario = true;
             }
             catch (Exception ex)
             {
+                resultado.error = new Error();
                 log.LogError("Se produjo un error en el controlador de alumnos en el método CrearAlumnos:" + ex.ToString());
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error dando de alta nuevo alumno");
+                resultado.error.mensaje = ex.ToString();
+                resultado.error.mostrarUsuario = false;
             }
+            return resultado;
         }
 
         [HttpPut("{id:int}")]
         public async Task<ActionResult<Alumno>> ModificarAlumno(int id, Alumno alumno)
         {
+            Alumno resultado = new Alumno();
             try
             {
                 if (id != alumno.Id)
@@ -94,14 +130,24 @@ namespace APIAlumnos.Controllers
                 if (alumnoModificar == null)
                     return NotFound($"Alumno con = {id} no encontrado");
 
-                return await alumnosRepositorio.ModificarAlumno(alumno);
+                resultado = await alumnosRepositorio.ModificarAlumno(alumno);
                 
+            }
+            catch (SqlException ex)
+            {
+                resultado.error = new Error();
+                log.LogError("Se produjo un error en el controlador de alumnos en el método ModificarAlumno:" + ex.ToString());
+                resultado.error.mensaje = "Error actualizando datos" + ex.Message;
+                resultado.error.mostrarUsuario = true;
             }
             catch (Exception ex)
             {
+                resultado.error = new Error();
                 log.LogError("Se produjo un error en el controlador de alumnos en el método ModificarAlumnos:" + ex.ToString());
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error actualizando datos");
+                resultado.error.mensaje = ex.ToString();
+                resultado.error.mostrarUsuario = false;
             }
+            return resultado;
         }
 
         [HttpDelete("{id:int}")]
@@ -117,7 +163,12 @@ namespace APIAlumnos.Controllers
 
                 return await alumnosRepositorio.BorrarAlumno(id);
             }
-            catch(Exception ex)
+            catch (SqlException ex)
+            {
+                log.LogError("Se produjo un error en el controlador de alumnos en el método BorrarAlumno:" + ex.ToString());
+                return StatusCode(StatusCodes.Status303SeeOther, ex.Message);
+            }
+            catch (Exception ex)
             {
                 log.LogError("Se produjo un error en el controlador de alumnos en el método BorrarAlumnos:" + ex.ToString());
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error borrando alumno");
@@ -140,6 +191,7 @@ namespace APIAlumnos.Controllers
         [Route("InscribirAlumno/{idCurso}/{idprecio}")]
         public async Task<ActionResult<Alumno>> InscribirAlumnoCurso([FromBody] Alumno alumno, int idCurso, int idprecio)
         {
+            Alumno resultado = new Alumno();
             try
             {
                 var alumnoValidar = await alumnosRepositorio.DameAlumno(alumno.Id);
@@ -147,39 +199,60 @@ namespace APIAlumnos.Controllers
                 if (alumnoValidar == null)
                     return NotFound($"Alumno no encontrado");
 
-                return await alumnosRepositorio.InscribirAlumnoCurso(alumno, idCurso, idprecio);
+                resultado = await alumnosRepositorio.InscribirAlumnoCurso(alumno, idCurso, idprecio);
+            }
+            catch (SqlException ex)
+            {
+                resultado.error = new Error();
+                log.LogError("Se produjo un error en el controlador de alumnos en el método InscribirAlumnoCurso:" + ex.ToString());
+                resultado.error.mensaje = "Error inscribiendo alumno en el curso" + ex.Message;
+                resultado.error.mostrarUsuario = true;
             }
             catch (Exception ex)
             {
+                resultado.error = new Error();
                 log.LogError("Se produjo un error en el controlador de alumnos en el método InscribirAlumnos:" + ex.ToString());
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error inscribiendo alumno en curso");
+                resultado.error.mensaje = ex.ToString();
+                resultado.error.mostrarUsuario = false;
             }
+            return resultado;
         }
         [Route("CursosAlumno/{idAlumno}")]
         public async Task<ActionResult<Alumno>> AlumnoCursos(int idAlumno)
         {
+            Alumno resultado = new Alumno();
             try
             {
-                Alumno AlumnoRespuesta = null;
+               
                 Alumno alumnoValidar = await alumnosRepositorio.DameAlumno(idAlumno);
 
                 if (alumnoValidar == null)
                     return NotFound($"Alumno no encontrado");
 
-                AlumnoRespuesta = await alumnosRepositorio.AlumnoCursos(idAlumno);
+                resultado = await alumnosRepositorio.AlumnoCursos(idAlumno);
 
-                if(AlumnoRespuesta == null)
+                if(resultado == null)
                 {
-                    AlumnoRespuesta = alumnoValidar;
+                    resultado = alumnoValidar;
                 }
-                return AlumnoRespuesta;
+               
                 
+            }
+            catch (SqlException ex)
+            {
+                resultado.error = new Error();
+                log.LogError("Se produjo un error en el controlador de alumnos en el método AlumnoCursos:" + ex.ToString());
+                resultado.error.mensaje = "Error obteniendo alumnos inscritos en un curso" + ex.Message;
+                resultado.error.mostrarUsuario = true;
             }
             catch (Exception ex)
             {
+                resultado.error = new Error();
                 log.LogError("Se produjo un error en el controlador de alumnos en el método AlumnoCurso:" + ex.ToString());
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error obteniendo cursos alumno");
+                resultado.error.mensaje = ex.ToString();
+                resultado.error.mostrarUsuario = false;
             }
+            return resultado;
         }
     }
 }

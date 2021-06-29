@@ -19,5 +19,7 @@ namespace ModeloClasesAlumnos
         [Required(ErrorMessage ="* El campo fechAlta es obligatorio")]
         public DateTime FechaAlta { get; set; }
         public DateTime? FechaBaja { get; set; }  // ? = Permite null
+        public Error error { get; set; }
+
     }
 }

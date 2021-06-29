@@ -47,10 +47,7 @@ namespace APIAlumnos.Repositorio
                 }
 
             }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error creando alumno " + ex.Message);
-            }
+         
             finally
             {
                 if (reader != null)
@@ -94,10 +91,7 @@ namespace APIAlumnos.Repositorio
                 }
 
             }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error cargando los datos de nuestro alumno " + ex.Message);
-            }
+           
             finally
             {
                 if (reader != null)
@@ -138,10 +132,7 @@ namespace APIAlumnos.Repositorio
                 }
 
             }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error cargando los datos de nuestro alumno " + ex.Message);
-            }
+         
             finally
             {
                 if (reader != null)
@@ -182,10 +173,7 @@ namespace APIAlumnos.Repositorio
                 }
                 
             }
-            catch(SqlException ex)
-            {
-                throw new Exception("Error cargando los datos de nuestro alumno " + ex.Message);
-            }
+        
             finally
             {
                 if(reader != null)
@@ -222,10 +210,7 @@ namespace APIAlumnos.Repositorio
                     alumnoModificado = await DameAlumno(Convert.ToInt32(reader["idalumno"]));
 
             }
-            catch (SqlException ex)
-            {
-                throw new Exception("Error modificando el alumno" + ex.Message);
-            }
+         
             finally
             {
                 if (reader != null)
@@ -334,10 +319,7 @@ namespace APIAlumnos.Repositorio
                 alumnoInscrito = await DameAlumno(Alumno.Id);
 
             }
-            catch(SqlException ex)
-            {
-                throw new Exception("Error inscribiendo alumno en curso" + ex.Message);
-            }
+         
             finally
             {
                 Comm.Dispose();
@@ -400,10 +382,7 @@ namespace APIAlumnos.Repositorio
                 if (c != null)
                     alumno.ListaCursos.Add(c);
             }
-            catch(SqlException ex)
-            {
-                throw new Exception("Error cargando los datos de nuesro alumno " + ex.Message);
-            }
+          
             finally
             {
                 if (reader != null)
