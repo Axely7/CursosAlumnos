@@ -34,6 +34,7 @@ namespace APIAlumnos
             services.AddControllers();
             services.AddScoped<IRepositorioAlumnos, RepositorioAlumnos>();
             services.AddScoped<IRepositorioCursos, RepositorioCursos>();
+            services.AddScoped<IRepositorioUsuarios, RepositorioUsuarios>();
 
             var cadenaConexionSqlConfiguracion = new AccesoDatos(Configuration.GetConnectionString("SQL"));
             services.AddSingleton(cadenaConexionSqlConfiguracion);

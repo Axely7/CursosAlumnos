@@ -1,0 +1,10 @@
+2021-06-30 11:17:58.6826|ERROR|BlazorServer.Servicios.ServicioCursos|Error creando nuestro usuario:  Error dando de alta nuevo usuarioCannot insert the value NULL into column 'Id', table 'BlazorUdemy.dbo.Usuario'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+2021-06-30 11:28:07.4328|ERROR|BlazorServer.Servicios.ServicioCursos|Error creando nuestro usuario:  Error dando de alta nuevo usuarioCannot insert the value NULL into column 'Id', table 'BlazorUdemy.dbo.Usuario'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+2021-06-30 11:38:12.5029|ERROR|BlazorServer.Servicios.ServicioCursos|Error creando nuestro usuario:  Error dando de alta nuevo usuarioEste usuario no existe en nuestro sistema
+2021-06-30 11:38:37.7943|ERROR|BlazorServer.Servicios.ServicioCursos|Error creando nuestro usuario:  Error dando de alta nuevo usuarioEste usuario no existe en nuestro sistema
+2021-06-30 11:43:35.9443|ERROR|BlazorServer.Servicios.ServicioCursos|Error creando nuestro usuario:  Error dando de alta nuevo usuarioEste email ya existe en nuestro sistema
+2021-06-30 11:44:10.6378|ERROR|BlazorServer.Servicios.ServicioCursos|Error creando nuestro usuario:  Error dando de alta nuevo usuarioEste usuario no existe en nuestro sistema
+2021-06-30 11:48:59.6225|ERROR|BlazorServer.Servicios.ServicioCursos|Error creando nuestro usuario:  Error dando de alta nuevo usuarioEste email ya existe en nuestro sistema
+2021-06-30 12:28:08.3481|ERROR|BlazorServer.Servicios.ServicioCursos|Error validando nuestro usuario:  Error validando usuarioEste usuario no existe en nuestro sistema

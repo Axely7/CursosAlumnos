@@ -66,6 +66,32 @@ namespace BlazorServer.Servicios
 
             return usuario;
         }
+
+        public async Task<UsuarioLogin> ValidarUsuario(UsuarioLogin usuarioLogin)
+        {
+            string token = Environment.GetEnvironmentVariable("Token");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            UsuarioLogin usuario = await httpClient.PostJsonAsync<UsuarioLogin>("API/Login/ValidarUsuario/", usuarioLogin);
+            if (usuario.error != null && usuario.error.mensaje != String.Empty)
+            {
+                if (usuario.error.mostrarUsuario)
+                {
+                    log.LogError("Error validando nuestro usuario:  " + usuario.error.mensaje);
+                    throw new Exception(usuario.error.mensaje);
+                }
+                else
+                {
+                    log.LogError("Error validando nuestro usuario: " + usuario.error.mensaje);
+                    throw new Exception("Error creando nuestro usuario");
+                }
+
+            }
+
+            return usuario;
+        }
+
+
+
     }
 }
 

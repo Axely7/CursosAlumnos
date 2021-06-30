@@ -90,21 +90,21 @@ using BlazorInputFile;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\IniciarSesion.razor"
+#line 2 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\CerrarSesion.razor"
 using ModeloClasesAlumnos;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\IniciarSesion.razor"
+#line 3 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\CerrarSesion.razor"
 using BlazorServer.Servicios;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/IniciarSesion")]
-    public partial class IniciarSesion : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/CerrarSesion")]
+    public partial class CerrarSesion : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -112,85 +112,18 @@ using BlazorServer.Servicios;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 72 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\IniciarSesion.razor"
+#line 8 "C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\BlazorServer\Pages\CerrarSesion.razor"
        
-   
-    UsuarioLogin usuario = new UsuarioLogin();
-
-    public String textoError = String.Empty;
-    public Boolean mostrarError = false;
-
-    Login l = new Login();
-    UsuarioAPI u = new UsuarioAPI();
-
-
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            l.Usuario = Environment.GetEnvironmentVariable("UsuarioAPI");
-            l.Password = Environment.GetEnvironmentVariable("UsuarioAPI");
-            u = (await ServicioLogin.SolicitudLogin(l));
-            Environment.SetEnvironmentVariable("Token", u.Token);
-        }
-        catch (Exception ex)
-        {
-            textoError = ex.Message;
-            MostrarError();
-            StateHasChanged();
-        }
+        ((MiServicioAuthenticationStateProvider)AuthenticationStateProvider).CerrarSesion();
+        navigationManager.NavigateTo("/IniciarSesion");
     }
-
-
-
-    public void HandleValidSubmit()
-    {
-        Console.WriteLine("OnValidSubmit");
-    }
-
-    private async void ValidarUsuario()
-    {
-
-        try
-        {
-            if (usuario.EmailLogin != null && usuario.Password != null)
-            {
-                usuario = (await ServicioLogin.ValidarUsuario(usuario));
-                //Llamaremos a nuestra API para validar al usuario en el siguiente
-                ((MiServicioAuthenticationStateProvider)AuthenticationStateProvider).UsuarioAutenticado(usuario.EmailLogin);
-                await almacenarSesion.SetItemAsync("email", usuario.EmailLogin);
-
-                navigationmanager.NavigateTo("/index");
-
-            }
-
-        }
-        catch (Exception ex)
-        {
-            textoError = ex.Message;
-            MostrarError();
-            StateHasChanged();
-        }
-
-    }
-
-
-        protected void CerrarError()
-        {
-            mostrarError = false;
-        }
-
-        protected void MostrarError()
-        {
-            mostrarError = true;
-        }
-
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IServicioLogin ServicioLogin { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationmanager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager navigationManager { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private Blazored.SessionStorage.ISessionStorageService almacenarSesion { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     }

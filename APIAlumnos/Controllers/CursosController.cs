@@ -97,7 +97,7 @@ namespace APIAlumnos.Controllers
                 if (resultado == null)
                     return NotFound();
 
-                return resultado;
+              
             }
             catch (SqlException ex)
             {
@@ -113,10 +113,6 @@ namespace APIAlumnos.Controllers
                 resultado.error.mensaje = ex.ToString();
                 resultado.error.mostrarUsuario = false;
             }
-
-
-
-
 
             return resultado;
         }

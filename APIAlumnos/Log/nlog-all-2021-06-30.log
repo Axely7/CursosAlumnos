@@ -1,0 +1,153 @@
+2021-06-30 00:13:35.2687|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2021-06-30 00:15:57.9906|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2021-06-30 00:50:09.6131|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2021-06-30 11:14:06.7014|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request.
+2021-06-30 11:17:58.5741|ERROR|APIAlumnos.Controllers.LoginController|Se produjo un error en el controlador de alumnos en el método CrearUsuario:System.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'Id', table 'BlazorUdemy.dbo.Usuario'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader()
+   at System.Data.SqlClient.SqlCommand.InternalEndExecuteReader(IAsyncResult asyncResult, String endMethod)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReaderInternal(IAsyncResult asyncResult)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReader(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location where exception was thrown ---
+   at APIAlumnos.Repositorio.RepositorioUsuarios.AltaUsuario(UsuarioLogin usuario) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Repositorio\RepositorioUsuarios.cs:line 43
+   at APIAlumnos.Controllers.LoginController.CrearUsuario(UsuarioLogin usuario) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Controllers\LoginController.cs:line 129
+ClientConnectionId:75fd6700-4e4c-44d1-8c72-06f7734909cf
+Error Number:515,State:2,Class:16
+2021-06-30 11:28:07.3371|ERROR|APIAlumnos.Controllers.LoginController|Se produjo un error en el controlador de alumnos en el método CrearUsuario:System.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'Id', table 'BlazorUdemy.dbo.Usuario'; column does not allow nulls. INSERT fails.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader()
+   at System.Data.SqlClient.SqlCommand.InternalEndExecuteReader(IAsyncResult asyncResult, String endMethod)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReaderInternal(IAsyncResult asyncResult)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReader(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location where exception was thrown ---
+   at APIAlumnos.Repositorio.RepositorioUsuarios.AltaUsuario(UsuarioLogin usuario) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Repositorio\RepositorioUsuarios.cs:line 43
+   at APIAlumnos.Controllers.LoginController.CrearUsuario(UsuarioLogin usuario) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Controllers\LoginController.cs:line 129
+ClientConnectionId:a3b9b237-c4d9-4e20-9818-7f2396e58d57
+Error Number:515,State:2,Class:16
+2021-06-30 11:38:12.3955|ERROR|APIAlumnos.Controllers.LoginController|Se produjo un error en el controlador de alumnos en el método CrearUsuario:System.Data.SqlClient.SqlException (0x80131904): Este usuario no existe en nuestro sistema
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader()
+   at System.Data.SqlClient.SqlCommand.InternalEndExecuteReader(IAsyncResult asyncResult, String endMethod)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReaderInternal(IAsyncResult asyncResult)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReader(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location where exception was thrown ---
+   at APIAlumnos.Repositorio.RepositorioUsuarios.DameUsuario(Int32 id) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Repositorio\RepositorioUsuarios.cs:line 77
+   at APIAlumnos.Repositorio.RepositorioUsuarios.AltaUsuario(UsuarioLogin usuario) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Repositorio\RepositorioUsuarios.cs:line 46
+   at APIAlumnos.Controllers.LoginController.CrearUsuario(UsuarioLogin usuario) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Controllers\LoginController.cs:line 129
+ClientConnectionId:513bb94b-b9b5-41ef-aa41-357614e019a6
+Error Number:50000,State:1,Class:16
+2021-06-30 11:38:37.7718|ERROR|APIAlumnos.Controllers.LoginController|Se produjo un error en el controlador de alumnos en el método CrearUsuario:System.Data.SqlClient.SqlException (0x80131904): Este usuario no existe en nuestro sistema
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader()
+   at System.Data.SqlClient.SqlCommand.InternalEndExecuteReader(IAsyncResult asyncResult, String endMethod)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReaderInternal(IAsyncResult asyncResult)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReader(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location where exception was thrown ---
+   at APIAlumnos.Repositorio.RepositorioUsuarios.DameUsuario(Int32 id) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Repositorio\RepositorioUsuarios.cs:line 77
+   at APIAlumnos.Repositorio.RepositorioUsuarios.AltaUsuario(UsuarioLogin usuario) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Repositorio\RepositorioUsuarios.cs:line 46
+   at APIAlumnos.Controllers.LoginController.CrearUsuario(UsuarioLogin usuario) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Controllers\LoginController.cs:line 129
+ClientConnectionId:513bb94b-b9b5-41ef-aa41-357614e019a6
+Error Number:50000,State:1,Class:16
+2021-06-30 11:43:35.8610|ERROR|APIAlumnos.Controllers.LoginController|Se produjo un error en el controlador de alumnos en el método CrearUsuario:System.Data.SqlClient.SqlException (0x80131904): Este email ya existe en nuestro sistema
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader()
+   at System.Data.SqlClient.SqlCommand.InternalEndExecuteReader(IAsyncResult asyncResult, String endMethod)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReaderInternal(IAsyncResult asyncResult)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReader(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location where exception was thrown ---
+   at APIAlumnos.Repositorio.RepositorioUsuarios.AltaUsuario(UsuarioLogin usuario) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Repositorio\RepositorioUsuarios.cs:line 43
+   at APIAlumnos.Controllers.LoginController.CrearUsuario(UsuarioLogin usuario) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Controllers\LoginController.cs:line 129
+ClientConnectionId:ea31469c-1098-4a3f-94f4-bfbbbd7bb571
+Error Number:50000,State:1,Class:16
+2021-06-30 11:44:10.6254|ERROR|APIAlumnos.Controllers.LoginController|Se produjo un error en el controlador de alumnos en el método CrearUsuario:System.Data.SqlClient.SqlException (0x80131904): Este usuario no existe en nuestro sistema
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader()
+   at System.Data.SqlClient.SqlCommand.InternalEndExecuteReader(IAsyncResult asyncResult, String endMethod)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReaderInternal(IAsyncResult asyncResult)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReader(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location where exception was thrown ---
+   at APIAlumnos.Repositorio.RepositorioUsuarios.DameUsuario(Int32 id) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Repositorio\RepositorioUsuarios.cs:line 77
+   at APIAlumnos.Repositorio.RepositorioUsuarios.AltaUsuario(UsuarioLogin usuario) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Repositorio\RepositorioUsuarios.cs:line 46
+   at APIAlumnos.Controllers.LoginController.CrearUsuario(UsuarioLogin usuario) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Controllers\LoginController.cs:line 129
+ClientConnectionId:3771a0bc-4e6c-449a-9688-8a2abe1f118c
+Error Number:50000,State:1,Class:16
+2021-06-30 11:48:59.5312|ERROR|APIAlumnos.Controllers.LoginController|Se produjo un error en el controlador de alumnos en el método CrearUsuario:System.Data.SqlClient.SqlException (0x80131904): Este email ya existe en nuestro sistema
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader()
+   at System.Data.SqlClient.SqlCommand.InternalEndExecuteReader(IAsyncResult asyncResult, String endMethod)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReaderInternal(IAsyncResult asyncResult)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReader(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location where exception was thrown ---
+   at APIAlumnos.Repositorio.RepositorioUsuarios.AltaUsuario(UsuarioLogin usuario) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Repositorio\RepositorioUsuarios.cs:line 43
+   at APIAlumnos.Controllers.LoginController.CrearUsuario(UsuarioLogin usuario) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Controllers\LoginController.cs:line 129
+ClientConnectionId:e98e5e3a-36e3-4971-ba10-6fcbfa7db461
+Error Number:50000,State:1,Class:16
+2021-06-30 12:28:08.2698|ERROR|APIAlumnos.Controllers.LoginController|Se produjo un error en el controlador de alumnos en el método CrearUsuario:System.Data.SqlClient.SqlException (0x80131904): Este usuario no existe en nuestro sistema
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader()
+   at System.Data.SqlClient.SqlCommand.InternalEndExecuteReader(IAsyncResult asyncResult, String endMethod)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReaderInternal(IAsyncResult asyncResult)
+   at System.Data.SqlClient.SqlCommand.EndExecuteReader(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location where exception was thrown ---
+   at APIAlumnos.Repositorio.RepositorioUsuarios.DameUsuario(String email) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Repositorio\RepositorioUsuarios.cs:line 113
+   at APIAlumnos.Controllers.LoginController.ValidarUsuario(UsuarioLogin usuario) in C:\Users\AxelEduardo\Documents\Software learning\BlazorCursoUdemy\APIAlumnos\Controllers\LoginController.cs:line 163
+ClientConnectionId:0df8bb82-8020-4c86-a8a7-6798a68eb1db
+Error Number:50000,State:1,Class:16

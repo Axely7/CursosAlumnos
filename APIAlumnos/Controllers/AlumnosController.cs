@@ -61,7 +61,7 @@ namespace APIAlumnos.Controllers
             try
             {
                 resultado = await alumnosRepositorio.DameAlumno(id);
-                if (resultado == null)
+                if (resultado.Id == null)
                     return NotFound();
             }
             catch (SqlException ex)

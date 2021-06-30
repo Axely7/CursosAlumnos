@@ -45,5 +45,14 @@ namespace BlazorServer.Servicios
 
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(usuario)));
         }
+
+        public void CerrarSesion()
+        {
+            almacenarSesionServicio.RemoveItemAsync("email");
+            var identity = new ClaimsIdentity();
+            var usuario = new ClaimsPrincipal(identity);
+
+            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(usuario)));
+        }
     }
 }

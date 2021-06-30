@@ -13,9 +13,9 @@ namespace BlazorServer.Servicios
     public class ServicioCursos:IServicioCursos
     {
         private readonly HttpClient httpClient;
-        private readonly ILogger<ServicioAlumnos> log;
+        private readonly ILogger<ServicioCursos> log;
 
-        public ServicioCursos(HttpClient httpClient, ILogger<ServicioAlumnos> l)
+        public ServicioCursos(HttpClient httpClient, ILogger<ServicioCursos> l)
         {
             this.httpClient = httpClient;
             this.log = l;
